@@ -10,6 +10,7 @@ Buttons::Buttons() {
 
 }
 
+// bound [-1, 1]
 inline float Buttons::axis(BTN::Axis a) {
   float pos = AXES[a]->position();
 
@@ -17,7 +18,7 @@ inline float Buttons::axis(BTN::Axis a) {
   if (fabs(pos) <= 5) {
     return 0;
   }
-  // normalize between 1-100, and cube to give more sensitivity to small inputs
+  // normalize then cube to give more sensitivity to small inputs
   return pow(pos / 100.0, 3);
 }
 

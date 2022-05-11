@@ -7,12 +7,11 @@ This class contains calls to abstract motor spin methods. They must be implement
 /*
 move(...) is nonblocking, and should be called each tick
 relHeading, bounded [0,365), is strafe direction relative to robot heading
-rotationAmt bounded [-1,1], where -1 means max counterclockwise, 0 is no spin, and 1 is max clockwise
-speed bounded (0, 100], scales down the speed of all the motors but keeping ratio between motors
+translationSpeed bounded (0, 100], speed for translation
+rotationAmt bounded [-100,100], where -100 means max counterclockwise, 0 is no spin, and 100 is max clockwise
 Example: move(0, 0.3) would cause the robot to spin in some circle with the robot's heading always tangent to the circle. */
-void HoloRobot::move(float relHeading, float rotationAmt, float speed) {
+void HoloRobot::move(float relHeading, float translationSpeed, float rotationSpeed) {
 
-  relHeading = fmod(360+relHeading, 360); // make sure it's bounded [0,360)
   float fl, fr, bl, br; // speeds (bounded [-1, 1]) of four motors
   
   // Calculate translation: refer to selfie https://discord.com/channels/863826887067435029/869718734409957387/973784859921240064
@@ -30,14 +29,18 @@ void HoloRobot::move(float relHeading, float rotationAmt, float speed) {
 
   bl = fr; // in translation, front left and back right motors spin the same speed
 
-  float rotationWeight = fabs(rotationAmt); // how much weight rotation value has
-  float translationWeight = 1 - rotationWeight; // how much weight translation value has
+  // bound speeds so that rotationSpeed + translationSpeed < 100
+  float sumSpeed = fabs(rotationSpeed) + fabs(translationSpeed);
+  if (sumSpeed > 100) {
+    rotationSpeed = 100.0 * (rotationSpeed / sumSpeed);
+    translationSpeed = 100.0 * (translationSpeed / sumSpeed);
+  }
 
   // weighted average between translation and rotation
-  float speedFL = (translationWeight * fl + rotationAmt * rotationWeight) * speed; // when turning clockwise, FL is positive
-  float speedFR = (translationWeight * fr - rotationAmt * rotationWeight) * speed; // when turning clockwise, FR is negative
-  float speedBL = (translationWeight * bl + rotationAmt * rotationWeight) * speed; // when turning clockwise, BL is positive
-  float speedBR = (translationWeight * br - rotationAmt * rotationWeight) * speed; // when turning clockwise, BR is negative
+  float speedFL = (translationSpeed * fl + rotationSpeed);
+  float speedFR = (translationSpeed * fr - rotationSpeed);
+  float speedBL = (translationSpeed * bl + rotationSpeed);
+  float speedBR = (translationSpeed * br - rotationSpeed);
 
   spinFL(speedFL);
   spinFR(speedFR);
@@ -49,12 +52,29 @@ void HoloRobot::move(float relHeading, float rotationAmt, float speed) {
 Wrapper for move(...), takes in absolute heading instead
 moveU(...) is nonblocking, and should be called each tick
 Eample: move(0, 0.3) would cause robot to continouously move forward and spin at the same time */
-void HoloRobot::moveU(float absHeading, float rotationAmt, float speed) {
+void HoloRobot::moveU(float absHeading, float translationSpeed, float rotationSpeed) {
   float relHeading = fmod(360 + absHeading - getAngle(), 360);
-  move(relHeading, rotationAmt, speed);
+  move(relHeading, translationSpeed, rotationSpeed);
 }
 
 // Maps full left joystick to translation and horizontal right joystick to rotation, calls moveU
+// slightly inflexible implementation, but set to left joystick = translation, right joystick = rotation
 void HoloRobot::holoDriveTeleop() {
+
+  float x = buttons.axis(BTN::LEFT_HORIZONTAL);
+  float y = buttons.axis(BTN::LEFT_VERTICAL);
+  float rot = buttons.axis(BTN::RIGHT_HORIZONTAL);
+
+  // precondition: dist(x,y) <= 1
+  float speed = fmin(100, distanceFormula(x, y) * 100.0);
+
+  if (speed == 0) stopDrive();
+  else {
+    float angle = 90 - (atan2(y, x) * 180.0 / M_PI);
+    angle = fmod(360, angle + 360); // bound 0-360
+    moveU(angle, speed, rot * 100.0);
+  }
+
+
 
 }
