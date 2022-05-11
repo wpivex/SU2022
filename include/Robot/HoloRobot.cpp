@@ -34,10 +34,10 @@ void HoloRobot::move(float relHeading, float rotationAmt, float speed) {
   float translationWeight = 1 - rotationWeight; // how much weight translation value has
 
   // weighted average between translation and rotation
-  float speedFL = (translationWeight * fl + rotationAmt * rotationWeight) * speed;
-  float speedFR = (translationWeight * fr + rotationAmt * rotationWeight) * speed;
-  float speedBL = (translationWeight * bl + rotationAmt * rotationWeight) * speed;
-  float speedBR = (translationWeight * br + rotationAmt * rotationWeight) * speed;
+  float speedFL = (translationWeight * fl + rotationAmt * rotationWeight) * speed; // when turning clockwise, FL is positive
+  float speedFR = (translationWeight * fr - rotationAmt * rotationWeight) * speed; // when turning clockwise, FR is negative
+  float speedBL = (translationWeight * bl + rotationAmt * rotationWeight) * speed; // when turning clockwise, FL is positive
+  float speedBR = (translationWeight * br - rotationAmt * rotationWeight) * speed; // when turning clockwise, FL is negative
 
   spinFL(speedFL);
   spinFR(speedFR);
