@@ -205,17 +205,17 @@ Discarded input sections
                 0x0000000000000000      0x210 build/src/main.o
  .ARM.exidx.text._ZN9BaseRobot22goAlignVision_AbstractEffffffl4Goalfb
                 0x0000000000000000        0x8 build/src/main.o
- .text._ZN7Robot1820setControllerMappingEv
+ .text._ZN7Robot1520setControllerMappingEv
                 0x0000000000000000        0x4 build/src/main.o
- .ARM.exidx.text._ZN7Robot1820setControllerMappingEv
+ .ARM.exidx.text._ZN7Robot1520setControllerMappingEv
                 0x0000000000000000        0x8 build/src/main.o
- .text._ZN7Robot1810goForwardUEfffbfff
+ .text._ZN7Robot1510goForwardUEfffbfff
                 0x0000000000000000       0xd4 build/src/main.o
- .ARM.exidx.text._ZN7Robot1810goForwardUEfffbfff
+ .ARM.exidx.text._ZN7Robot1510goForwardUEfffbfff
                 0x0000000000000000        0x8 build/src/main.o
- .text._ZN7Robot187goTurnUEfibff
+ .text._ZN7Robot157goTurnUEfibff
                 0x0000000000000000       0x64 build/src/main.o
- .ARM.exidx.text._ZN7Robot187goTurnUEfibff
+ .ARM.exidx.text._ZN7Robot157goTurnUEfibff
                 0x0000000000000000        0x8 build/src/main.o
  .text._Z8preAutonv
                 0x0000000000000000        0xc build/src/main.o
@@ -2895,62 +2895,62 @@ Linker script and memory map
  .text._ZN9BaseRobot16basicDriveTeleopEv
                 0x00000000038004a0      0x158 build/src/main.o
                 0x00000000038004a0                BaseRobot::basicDriveTeleop()
- .text._ZN7Robot18C2Ev
+ .text._ZN7Robot15C2Ev
                 0x00000000038005f8      0x2dc build/src/main.o
-                0x00000000038005f8                Robot18::Robot18()
-                0x00000000038005f8                Robot18::Robot18()
+                0x00000000038005f8                Robot15::Robot15()
+                0x00000000038005f8                Robot15::Robot15()
  *fill*         0x00000000038008d4        0x4 
- .text._ZN7Robot1817distanceToDegreesEf
+ .text._ZN7Robot1517distanceToDegreesEf
                 0x00000000038008d8       0x58 build/src/main.o
-                0x00000000038008d8                Robot18::distanceToDegrees(float)
- .text._ZN7Robot1817degreesToDistanceEf
+                0x00000000038008d8                Robot15::distanceToDegrees(float)
+ .text._ZN7Robot1517degreesToDistanceEf
                 0x0000000003800930       0x38 build/src/main.o
-                0x0000000003800930                Robot18::degreesToDistance(float)
- .text._ZN7Robot186teleopEv
+                0x0000000003800930                Robot15::degreesToDistance(float)
+ .text._ZN7Robot156teleopEv
                 0x0000000003800968       0x1c build/src/main.o
-                0x0000000003800968                Robot18::teleop()
- .text._ZN7Robot1822getLeftEncoderDistanceEv
+                0x0000000003800968                Robot15::teleop()
+ .text._ZN7Robot1522getLeftEncoderDistanceEv
                 0x0000000003800984       0x90 build/src/main.o
-                0x0000000003800984                Robot18::getLeftEncoderDistance()
- .text._ZN7Robot1823getRightEncoderDistanceEv
+                0x0000000003800984                Robot15::getLeftEncoderDistance()
+ .text._ZN7Robot1523getRightEncoderDistanceEv
                 0x0000000003800a14       0x90 build/src/main.o
-                0x0000000003800a14                Robot18::getRightEncoderDistance()
- .text._ZN7Robot1820resetEncoderDistanceEv
+                0x0000000003800a14                Robot15::getRightEncoderDistance()
+ .text._ZN7Robot1520resetEncoderDistanceEv
                 0x0000000003800aa4       0x50 build/src/main.o
-                0x0000000003800aa4                Robot18::resetEncoderDistance()
- .text._ZN7Robot1815setLeftVelocityEN3vex13directionTypeEd
+                0x0000000003800aa4                Robot15::resetEncoderDistance()
+ .text._ZN7Robot1515setLeftVelocityEN3vex13directionTypeEd
                 0x0000000003800af4      0x154 build/src/main.o
-                0x0000000003800af4                Robot18::setLeftVelocity(vex::directionType, double)
- .text._ZN7Robot1816setRightVelocityEN3vex13directionTypeEd
+                0x0000000003800af4                Robot15::setLeftVelocity(vex::directionType, double)
+ .text._ZN7Robot1516setRightVelocityEN3vex13directionTypeEd
                 0x0000000003800c48      0x154 build/src/main.o
-                0x0000000003800c48                Robot18::setRightVelocity(vex::directionType, double)
- .text._ZN7Robot188stopLeftEv
+                0x0000000003800c48                Robot15::setRightVelocity(vex::directionType, double)
+ .text._ZN7Robot158stopLeftEv
                 0x0000000003800d9c       0x30 build/src/main.o
-                0x0000000003800d9c                Robot18::stopLeft()
- .text._ZN7Robot189stopRightEv
+                0x0000000003800d9c                Robot15::stopLeft()
+ .text._ZN7Robot159stopRightEv
                 0x0000000003800dcc       0x30 build/src/main.o
-                0x0000000003800dcc                Robot18::stopRight()
- .text._ZN7Robot1812setBrakeTypeEN3vex9brakeTypeE
+                0x0000000003800dcc                Robot15::stopRight()
+ .text._ZN7Robot1512setBrakeTypeEN3vex9brakeTypeE
                 0x0000000003800dfc       0x70 build/src/main.o
-                0x0000000003800dfc                Robot18::setBrakeType(vex::brakeType)
- .text._ZN7Robot1815getDriveCurrentEv
+                0x0000000003800dfc                Robot15::setBrakeType(vex::brakeType)
+ .text._ZN7Robot1515getDriveCurrentEv
                 0x0000000003800e6c       0xc4 build/src/main.o
-                0x0000000003800e6c                Robot18::getDriveCurrent()
- .text._ZN7Robot18D2Ev
+                0x0000000003800e6c                Robot15::getDriveCurrent()
+ .text._ZN7Robot15D2Ev
                 0x0000000003800f30       0x80 build/src/main.o
-                0x0000000003800f30                Robot18::~Robot18()
- .text._Z12mainTeleop18v
+                0x0000000003800f30                Robot15::~Robot15()
+ .text._Z12mainTeleop15v
                 0x0000000003800fb0       0x50 build/src/main.o
-                0x0000000003800fb0                mainTeleop18()
+                0x0000000003800fb0                mainTeleop15()
  .text._Z5autonv
                 0x0000000003801000        0x8 build/src/main.o
                 0x0000000003801000                auton()
- .text._Z12autonomous18v
+ .text._Z12autonomous15v
                 0x0000000003801008       0x40 build/src/main.o
-                0x0000000003801008                autonomous18()
- .text._Z13userControl18v
+                0x0000000003801008                autonomous15()
+ .text._Z13userControl15v
                 0x0000000003801048       0x40 build/src/main.o
-                0x0000000003801048                userControl18()
+                0x0000000003801048                userControl15()
  .text._Z8mainFuncv
                 0x0000000003801088       0x64 build/src/main.o
                 0x0000000003801088                mainFunc()
@@ -3600,9 +3600,9 @@ Linker script and memory map
  .rodata.str1.8
                 0x0000000003803aa8       0x28 build/src/main.o
                                          0x26 (size before relaxing)
- .rodata._ZTV7Robot18
+ .rodata._ZTV7Robot15
                 0x0000000003803ad0       0x38 build/src/main.o
-                0x0000000003803ad0                vtable for Robot18
+                0x0000000003803ad0                vtable for Robot15
  .rodata.str1.1
                 0x0000000003803b08       0x2e /Applications/VEXcode Pro V5.app/Contents/Resources/sdk/vexv5/libv5rt.a(v5_startup.c.obj)
  *fill*         0x0000000003803b36        0x2 
@@ -3807,58 +3807,58 @@ Linker script and memory map
  .ARM.exidx.text._ZN9BaseRobot16basicDriveTeleopEv
                 0x00000000038040dc        0x0 build/src/main.o
                                           0x8 (size before relaxing)
- .ARM.exidx.text._ZN7Robot18C2Ev
+ .ARM.exidx.text._ZN7Robot15C2Ev
                 0x00000000038040dc        0x0 build/src/main.o
                                           0x8 (size before relaxing)
- .ARM.exidx.text._ZN7Robot1817distanceToDegreesEf
+ .ARM.exidx.text._ZN7Robot1517distanceToDegreesEf
                 0x00000000038040dc        0x0 build/src/main.o
                                           0x8 (size before relaxing)
- .ARM.exidx.text._ZN7Robot1817degreesToDistanceEf
+ .ARM.exidx.text._ZN7Robot1517degreesToDistanceEf
                 0x00000000038040dc        0x0 build/src/main.o
                                           0x8 (size before relaxing)
- .ARM.exidx.text._ZN7Robot186teleopEv
+ .ARM.exidx.text._ZN7Robot156teleopEv
                 0x00000000038040dc        0x0 build/src/main.o
                                           0x8 (size before relaxing)
- .ARM.exidx.text._ZN7Robot1822getLeftEncoderDistanceEv
+ .ARM.exidx.text._ZN7Robot1522getLeftEncoderDistanceEv
                 0x00000000038040dc        0x0 build/src/main.o
                                           0x8 (size before relaxing)
- .ARM.exidx.text._ZN7Robot1823getRightEncoderDistanceEv
+ .ARM.exidx.text._ZN7Robot1523getRightEncoderDistanceEv
                 0x00000000038040dc        0x0 build/src/main.o
                                           0x8 (size before relaxing)
- .ARM.exidx.text._ZN7Robot1820resetEncoderDistanceEv
+ .ARM.exidx.text._ZN7Robot1520resetEncoderDistanceEv
                 0x00000000038040dc        0x0 build/src/main.o
                                           0x8 (size before relaxing)
- .ARM.exidx.text._ZN7Robot1815setLeftVelocityEN3vex13directionTypeEd
+ .ARM.exidx.text._ZN7Robot1515setLeftVelocityEN3vex13directionTypeEd
                 0x00000000038040dc        0x0 build/src/main.o
                                           0x8 (size before relaxing)
- .ARM.exidx.text._ZN7Robot1816setRightVelocityEN3vex13directionTypeEd
+ .ARM.exidx.text._ZN7Robot1516setRightVelocityEN3vex13directionTypeEd
                 0x00000000038040dc        0x0 build/src/main.o
                                           0x8 (size before relaxing)
- .ARM.exidx.text._ZN7Robot188stopLeftEv
+ .ARM.exidx.text._ZN7Robot158stopLeftEv
                 0x00000000038040dc        0x0 build/src/main.o
                                           0x8 (size before relaxing)
- .ARM.exidx.text._ZN7Robot189stopRightEv
+ .ARM.exidx.text._ZN7Robot159stopRightEv
                 0x00000000038040dc        0x0 build/src/main.o
                                           0x8 (size before relaxing)
- .ARM.exidx.text._ZN7Robot1812setBrakeTypeEN3vex9brakeTypeE
+ .ARM.exidx.text._ZN7Robot1512setBrakeTypeEN3vex9brakeTypeE
                 0x00000000038040dc        0x0 build/src/main.o
                                           0x8 (size before relaxing)
- .ARM.exidx.text._ZN7Robot1815getDriveCurrentEv
+ .ARM.exidx.text._ZN7Robot1515getDriveCurrentEv
                 0x00000000038040dc        0x0 build/src/main.o
                                           0x8 (size before relaxing)
- .ARM.exidx.text._ZN7Robot18D2Ev
+ .ARM.exidx.text._ZN7Robot15D2Ev
                 0x00000000038040dc        0x0 build/src/main.o
                                           0x8 (size before relaxing)
- .ARM.exidx.text._Z12mainTeleop18v
+ .ARM.exidx.text._Z12mainTeleop15v
                 0x00000000038040dc        0x0 build/src/main.o
                                           0x8 (size before relaxing)
  .ARM.exidx.text._Z5autonv
                 0x00000000038040dc        0x0 build/src/main.o
                                           0x8 (size before relaxing)
- .ARM.exidx.text._Z12autonomous18v
+ .ARM.exidx.text._Z12autonomous15v
                 0x00000000038040dc        0x0 build/src/main.o
                                           0x8 (size before relaxing)
- .ARM.exidx.text._Z13userControl18v
+ .ARM.exidx.text._Z13userControl15v
                 0x00000000038040dc        0x0 build/src/main.o
                                           0x8 (size before relaxing)
  .ARM.exidx.text._Z8mainFuncv

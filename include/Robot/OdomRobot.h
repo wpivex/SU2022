@@ -4,7 +4,7 @@
 class OdomRobot : public BaseRobot {
 
 public:
-  OdomRobot(float distBetweenWheels, int32_t gyroPort, float encoderDiamter);
+  OdomRobot(float distBetweenWheels, int32_t gyroPort, float encoderDiamter, triport::port left, triport::port right, triport::port back);
 
   const float ENCODER_DIAMETER;
   encoder leftEncoder;

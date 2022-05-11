@@ -78,8 +78,7 @@ bool stopAfter, float slowMinSpeed) {
   }
 
   if (stopAfter) {
-    stopLeft();
-    stopRight();
+    stopDrive();
   }
 }
 
@@ -115,8 +114,7 @@ void BaseRobot::goRadiusCurve(float radius, float circProportion, bool curveDire
     wait(20, msec);
   }
   if(stopAfter){
-    stopLeft();
-    stopRight();
+    stopDrive();
   }
 }
 
@@ -129,8 +127,7 @@ void BaseRobot::goForwardTimed(float duration, float speed) {
     setRightVelocity(forward, speed);
     wait(20, msec);
   }
-  stopLeft();
-  stopRight();
+  stopDrive();
 }
 
 // THIS FUNCTION DOES NOT STOP THE MOTORS; THEY WILL BE RUNNING AT FULL SPEED BACKWARDS AT THE END
@@ -188,8 +185,7 @@ float endSlowInches, bool stopAfter, float startSpeed, float stopSpeed, float ti
     wait(20, msec);
   }
   if (stopAfter) {
-    stopLeft();
-    stopRight();
+    stopDrive();
   }
   //log("straight done");
 }
@@ -230,8 +226,7 @@ float universalAngleDegrees, int direction, bool stopAfter, float timeout, float
   //log("wtf done");
 
   if (stopAfter) {
-    stopLeft();
-    stopRight();
+    stopDrive();
   }  
 }
 
@@ -252,8 +247,7 @@ void BaseRobot::goTurnFastU(float universalAngleDegrees, int direction, float sp
     wait(20, msec);
   }
   if (stopAfter) {
-    stopLeft();
-    stopRight();
+    stopDrive();
   }
     
 }
@@ -286,8 +280,7 @@ void BaseRobot::goVision_Abstract(float K_P, float MIN_SPEED, int32_t CAMERA_POR
     wait(20, msec);
   }
   if (stopAfter) {
-    stopLeft();
-    stopRight();
+    stopDrive();
   }
 }
 
@@ -315,8 +308,7 @@ void BaseRobot::goAlignVision_Abstract(float K_P, float K_I, float K_D, float TO
   }
 
   if (stopAfter) {
-    stopLeft();
-    stopRight();
+    stopDrive();
   }
 }
 

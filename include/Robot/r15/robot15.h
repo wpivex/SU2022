@@ -16,7 +16,7 @@
 #include <algorithm>
 
 #include "Utility/VisualGraph.cpp"
-#include "BaseRobot.cpp"
+#include "Robot/BaseRobot.cpp"
 #include "constants.h"
 
 using namespace vex;

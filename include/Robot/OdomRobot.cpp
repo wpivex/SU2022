@@ -1,7 +1,12 @@
 #include "OdomRobot.h"
 
-OdomRobot::OdomRobot(float distBetweenWheels, int32_t gyroPort, float encoderDiameter): BaseRobot(distBetweenWheels, gyroPort), 
-leftEncoder(Brain.ThreeWirePort.A), rightEncoder(Brain.ThreeWirePort.B), backEncoder(Brain.ThreeWirePort.C),
+/*
+A subclass of BaseBot that provides odometry functionality. Gives absolute positioning. tickOdom() must be called every frame in a seperate thread
+*/
+
+OdomRobot::OdomRobot(float distBetweenWheels, int32_t gyroPort, float encoderDiameter,
+ triport::port left, triport::port right, triport::port back): BaseRobot(distBetweenWheels, gyroPort), 
+leftEncoder(left), rightEncoder(right), backEncoder(back),
 ENCODER_DIAMETER(encoderDiameter) {
 
   // stuff

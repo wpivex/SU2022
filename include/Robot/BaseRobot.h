@@ -39,6 +39,7 @@ public:
   virtual void setRightVelocity(directionType d, double percent) = 0;
   virtual void stopLeft() = 0;
   virtual void stopRight() = 0;
+  void stopDrive() {stopLeft(); stopRight(); }
   virtual void setBrakeType(brakeType b) = 0;
   virtual float getDriveCurrent() = 0;
 
