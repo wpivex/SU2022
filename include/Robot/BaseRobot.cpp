@@ -9,6 +9,7 @@ float BaseRobot::getAngle() {
   return gyroSensor.heading();
 }
 
+// A weird routine that maximizes the accuracy of the gyro sensor
 void BaseRobot::calibrateGyroBlocking() {
 
   wait(500, msec);

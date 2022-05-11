@@ -5,8 +5,8 @@ class HoloRobot : public BaseRobot {
 
 public:
 
-  void move(float relHeading, float rotationAmt, float speedScalar = 1);
-  void moveU(float absHeading, float rotationAmt, float speedScalar = 1);
+  void move(float relHeading, float rotationAmt, float speed = 100);
+  void moveU(float absHeading, float rotationAmt, float speed = 100);
   void holoDriveTeleop();
 
   // Virtual methods that need to be implemented
