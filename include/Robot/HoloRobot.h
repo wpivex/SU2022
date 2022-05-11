@@ -5,15 +5,12 @@ class HoloRobot : public BaseRobot {
 
 public:
 
-  void move(float relHeading, float translationSpeed = 100, float rotationSpeed = 0);
-  void moveU(float absHeading, float translationSpeed = 100, float rotationSpeed = 0);
+  void moveWithComponents(float drive, float strafe, float turn);
+  void moveHeadingU(float absHeading, float translationSpeed, float turnSpeed);
   void holoDriveTeleop();
 
   // Virtual methods that need to be implemented
-  virtual void spinFL(float percent) = 0; // front left
-  virtual void spinFR(float percent) = 0; // front right
-  virtual void spinBL(float percent) = 0; // back left
-  virtual void spinBR(float percent) = 0; // back right
+  virtual void setDrivePower(float velFL, float velFR, float velBL, float velBR) = 0;
   virtual void stopDrive() = 0; // stop all drive motors
 
 

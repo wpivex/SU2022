@@ -4,77 +4,49 @@
 A subclass of BaseBot that provides an interface for holonomic drive. Features independent and concurrent control of translation and rotation.
 This class contains calls to abstract motor spin methods. They must be implemented corresponding to the drivetrain of the robt. */
 
-/*
-move(...) is nonblocking, and should be called each tick
-relHeading, bounded [0,365), is strafe direction relative to robot heading
-translationSpeed bounded (0, 100], speed for translation
-rotationAmt bounded [-100,100], where -100 means max counterclockwise, 0 is no spin, and 100 is max clockwise
-Example: move(0, 0.3) would cause the robot to spin in some circle with the robot's heading always tangent to the circle. */
-void HoloRobot::move(float relHeading, float translationSpeed, float rotationSpeed) {
+// move(...) is nonblocking, and should be called each tick
+// drive, strafe, and turn have domain [-100, 100]
+void HoloRobot::moveWithComponents(float drive, float strafe, float turn) {
 
-  float fl, fr, bl, br; // speeds (bounded [-1, 1]) of four motors
-  
-  // Calculate translation: refer to selfie https://discord.com/channels/863826887067435029/869718734409957387/973784859921240064
-  if (relHeading < 90) fl = 1;
-  else if (relHeading < 180) fl = (135.0 - relHeading) / 45.0; // linearly interpolate between 90 -> 1, 180 -> -1
-  else if (relHeading < 270) fl = -1;
-  else fl = (relHeading - 315.0) / 45.0; // linearly interpolate between 270 -> -1, 0 -> 1
-
-  br = fl; // in translation, front left and back right motors spin the same speed
-
-  if (relHeading < 90) fr = (45.0 - relHeading) / 45.0; // 0 -> 1, 90 -> -1
-  else if (relHeading < 180) fr = -1;
-  else if (relHeading < 270) fr = (relHeading - 225.0) / 45.0; // 180 -> -1, 270 -> 1
-  else fr = 1;
-
-  bl = fr; // in translation, front left and back right motors spin the same speed
-
-  // bound speeds so that rotationSpeed + translationSpeed < 100
-  float sumSpeed = fabs(rotationSpeed) + fabs(translationSpeed);
-  if (sumSpeed > 100) {
-    rotationSpeed = 100.0 * (rotationSpeed / sumSpeed);
-    translationSpeed = 100.0 * (translationSpeed / sumSpeed);
+  if (drive == 0 && strafe == 0 && turn == 0) {
+    stopDrive();
+    return;
   }
 
-  // weighted average between translation and rotation
-  float speedFL = (translationSpeed * fl + rotationSpeed);
-  float speedFR = (translationSpeed * fr - rotationSpeed);
-  float speedBL = (translationSpeed * bl + rotationSpeed);
-  float speedBR = (translationSpeed * br - rotationSpeed);
+  float maxSpeed = fmax(100, distanceFormula(drive,strafe) + fabs(turn));
 
-  spinFL(speedFL);
-  spinFR(speedFR);
-  spinBL(speedBL);
-  spinBR(speedBR);
+  float leftFront = drive + strafe + turn;
+  float leftBack = drive - strafe + turn;
+  float rightFront = drive - strafe - turn;
+  float rightBack = drive + strafe - turn;
+  float max = fmax(fmax(fabs(leftFront),fabs(leftBack)),fmax(fabs(rightFront),fabs(rightBack)));
+  
+  // normalize and rescale to maxSpeed
+  float scalar = maxSpeed / max;
+  setDrivePower(leftFront * scalar, leftBack * scalar, rightFront * scalar, rightBack * scalar);
 }
 
 /*
-Wrapper for move(...), takes in absolute heading instead
-moveU(...) is nonblocking, and should be called each tick
-Eample: move(0, 0.3) would cause robot to continouously move forward and spin at the same time */
-void HoloRobot::moveU(float absHeading, float translationSpeed, float rotationSpeed) {
+move(...) is nonblocking, takes in absolute heading
+absHeading, bounded [0,365), is strafe direction
+translationSpeed bounded (0, 100], speed for translations
+turnSpeed bounded [-100,100], where -100 means max counterclockwise, 0 is no spin, and 100 is max clockwise
+Eample: move(0, 100, 100) would cause robot to continouously move forward and spin at the same time */
+void HoloRobot::moveHeadingU(float absHeading, float translationSpeed, float turnSpeed) {
   float relHeading = fmod(360 + absHeading - getAngle(), 360);
-  move(relHeading, translationSpeed, rotationSpeed);
+  float headingRadians = relHeading * M_PI / 180.0;
+  float x = cos(headingRadians) * translationSpeed;
+  float y = sin(headingRadians) * translationSpeed;
+  moveWithComponents(x, y, turnSpeed);
 }
 
 // Maps full left joystick to translation and horizontal right joystick to rotation, calls moveU
 // slightly inflexible implementation, but set to left joystick = translation, right joystick = rotation
 void HoloRobot::holoDriveTeleop() {
 
-  float x = buttons.axis(BTN::LEFT_HORIZONTAL);
-  float y = buttons.axis(BTN::LEFT_VERTICAL);
-  float rot = buttons.axis(BTN::RIGHT_HORIZONTAL);
+  float drive = buttons.axis(BTN::LEFT_VERTICAL) * 100;
+  float strafe = buttons.axis(BTN::LEFT_HORIZONTAL) * 100;
+  float turn = buttons.axis(BTN::RIGHT_HORIZONTAL) * 100;
 
-  // precondition: dist(x,y) <= 1
-  float speed = fmin(100, distanceFormula(x, y) * 100.0);
-
-  if (speed == 0) stopDrive();
-  else {
-    float angle = 90 - (atan2(y, x) * 180.0 / M_PI);
-    angle = fmod(360, angle + 360); // bound 0-360
-    moveU(angle, speed, rot * 100.0);
-  }
-
-
-
+  moveWithComponents(drive, strafe, turn);
 }
