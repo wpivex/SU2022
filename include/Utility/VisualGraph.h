@@ -9,7 +9,7 @@ class VisualGraph {
 
   public:
   VisualGraph(float minY, float maxY, int numMarkersY, int sizeRingQueue, int numFunctions = 1);
-  void configureAutomaticDisplay(int interval = 1);
+  void setDisplayFrequency(int interval = 1);
   void push(float dataPoint, int func = 0);
   void display();
   int *a;

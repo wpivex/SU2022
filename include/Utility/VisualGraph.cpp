@@ -14,9 +14,11 @@ VisualGraph::VisualGraph(float minY, float maxY, int numMarkersY, int sizeRingQu
   lineColors[2] = red;
   lineColors[3] = yellow;
   lineColors[4] = purple;
+
+  setDisplayFrequency(1);
 }
 
-void VisualGraph::configureAutomaticDisplay(int interval) {
+void VisualGraph::setDisplayFrequency(int interval) {
   displayInterval = (interval < 1) ? 1 : interval;
 }
 
