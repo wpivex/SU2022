@@ -18,7 +18,7 @@ void HoloRobot::moveWithComponents(float drive, float strafe, float turn) {
     return;
   }
 
-  float maxSpeed = fmax(100, distanceFormula(drive,strafe) + fabs(turn));
+  float maxSpeed = fmin(100, distanceFormula(drive,strafe) + fabs(turn));
 
   float leftFront = drive + strafe + turn;
   float leftBack = drive - strafe + turn;
@@ -28,7 +28,14 @@ void HoloRobot::moveWithComponents(float drive, float strafe, float turn) {
   
   // normalize and rescale to maxSpeed
   float scalar = maxSpeed / max;
-  setDrivePower(leftFront * scalar, leftBack * scalar, rightFront * scalar, rightBack * scalar);
+  leftFront *= scalar;
+  rightFront *= scalar;
+  leftBack *= scalar;
+  rightBack *= scalar;
+
+  log("LF: %f\nRF: %f\nLB: %f\nRB: %f", leftFront, rightFront, leftBack, rightBack);
+
+  setDrivePower(leftFront * scalar, rightFront * scalar, leftBack * scalar, rightBack * scalar);
 }
 
 /*
