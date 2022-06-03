@@ -1,15 +1,15 @@
 #include "PurePursuitRobot.h"
-#include "Utility/PIDController.h"
+
 
 PurePursuitRobot::PurePursuitRobot(float distBetweenWheels, int32_t gyroPort, float encoderDiameter,
- triport::port left, triport::port right, triport::port back): OdomRobot(float distBetweenWheels, int32_t gyroPort, float encoderDiameter,
- triport::port left, triport::port right, triport::port back) {
+ triport::port left, triport::port right, triport::port back): OdomRobot(distBetweenWheels, gyroPort, encoderDiameter,
+  left, right,  back), HoloRobot(0,0) {
 
 }
 
-int PurePursuitRobot::findClosestPoint(std::vector<Point> *points, float x, float y, int start, int end) {
+int PurePursuitRobot::findClosestPoint(float x, float y, int start, int end) {
   start = fmax(start, 0);
-  end = fmin(end, points->size() - 1);
+  end = fmin(end, points.size() - 1);
 
   int minIndex = start;
   float minDist = distanceBetweenPoints(x, y, points[start].x, points[start].y);
@@ -24,22 +24,30 @@ int PurePursuitRobot::findClosestPoint(std::vector<Point> *points, float x, floa
   return minIndex;
 }
 
-bool PurePursuitRobot::runPurePursuit(std::vector<Point> *points) {
-  PIDController pidX = PIDController(0, 0, 0);
-  PIDController pidY = PIDController(0, 0, 0);
-  PIDController pidRot = PIDController(0, 0, 0);
-  PIDController pidFinal = PIDController(0, 0, 0); // for the last point
+void PurePursuitRobot::drawTrajectory(VisualField f) {
+
+  for (Point p : points) {
+    f.drawPoint(f.getX(p.x), f.getY(p.y));
+  }  
+
+}
+/*
+bool PurePursuitRobot::runPurePursuit() {
+  PID pidX = PID(0, 0, 0);
+  PID pidY = PID(0, 0, 0);
+  PID pidRot = PID(0, 0, 0);
+  PID pidFinal = PID(0, 0, 0); // for the last point
   
-  float xvel = 0 // velocities in inches/second
-  float yvel = 0
-  float tvel = 0 // angular velocity
-  int li = 0 // lookahead index
-  int ci = 0 // closest index
+  float xvel = 0; // velocities in inches/second
+  float yvel = 0;
+  float tvel = 0; // angular velocity
+  int li = 0; // lookahead index
+  int ci = 0; // closest index
   float x = 0;
   float y = 0;
   float theta = 0;
 
-  float errorSum = 0
+  float errorSum = 0;
 
   while(li != points.size - 1 || distanceBetweenPoints(points[points.size-1].x, points[points.size-1].y, x, y) > STOP_DISTANCE_THRESHOLD) {
 
@@ -103,4 +111,4 @@ std::vector<Point> loadPointsFromCSV(std::string filepath) {
     }
   }
   return points;
-}
+}*/

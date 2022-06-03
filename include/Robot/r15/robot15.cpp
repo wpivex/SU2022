@@ -1,7 +1,7 @@
 #include "robot15.h"
-#include "Robot/PurePursuitRobot.h"
 
-Robot15::Robot15() : BaseRobot(9.5, PORT16), leftMotorA(0), leftMotorB(0), leftMotorC(0), leftMotorD(0), rightMotorA(0), rightMotorB(0), 
+Robot15::Robot15() : PurePursuitRobot(0, 0, 0,
+ Brain.ThreeWirePort.A, Brain.ThreeWirePort.A, Brain.ThreeWirePort.A), leftMotorA(0), leftMotorB(0), leftMotorC(0), leftMotorD(0), rightMotorA(0), rightMotorB(0), 
   rightMotorC(0), rightMotorD(0) {
 
   leftMotorA = motor(PORT1, ratio6_1, true); 

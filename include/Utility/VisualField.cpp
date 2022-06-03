@@ -21,10 +21,17 @@ void VisualField::drawLine(float x1, float y1, float x2, float y2, bool isTileUn
   Brain.Screen.drawLine(getX(x1, isTileUnits), getY(y1, isTileUnits), getX(x2, isTileUnits), getY(y2, isTileUnits));
 }
 
+void VisualField::drawPoint(float x, float y, bool isTileUnits) {
+  Brain.Screen.drawPixel(getX(x, isTileUnits), getY(y, isTileUnits));
+}
+
 color vexblue(37, 75, 143);
 color vexred(204, 57, 58);
 color vexyellowline(225, 167, 102);
+
 void VisualField::drawField() {
+
+  Brain.Screen.clearScreen();
 
   //field from (20,20) to (224, 224)
   // draw 7 rows/cols of lines for 6 tiles

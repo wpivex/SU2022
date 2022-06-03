@@ -1,7 +1,7 @@
 #pragma once
 #include "BaseRobot.cpp"
 
-class OdomRobot : public BaseRobot {
+class OdomRobot : virtual public BaseRobot {
 
 public:
   OdomRobot(float distBetweenWheels, int32_t gyroPort, float encoderDiamter, triport::port left, triport::port right, triport::port back);
