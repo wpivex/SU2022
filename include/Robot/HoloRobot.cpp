@@ -3,8 +3,8 @@
 /*
 A subclass of BaseBot that provides an interface for holonomic drive. Features independent and concurrent control of translation and rotation.
 This class contains calls to abstract motor spin methods. They must be implemented corresponding to the drivetrain of the robt. */
-HoloRobot::HoloRobot(float distBetweenWheels, int32_t gyroPort, float encoderDiameter,
- triport::port left, triport::port right, triport::port back): OdomRobot(distBetweenWheels, gyroPort, encoderDiameter,
+HoloRobot::HoloRobot(int32_t gyroPort, float encoderDiameter, triport::port left, triport::port right, triport::port back): 
+OdomRobot(gyroPort, encoderDiameter,
   left, right,  back) {
   
 }
@@ -22,8 +22,8 @@ void HoloRobot::moveWithComponents(float drive, float strafe, float turn) {
 
   float leftFront = drive + strafe + turn;
   float leftBack = drive - strafe + turn;
-  float rightFront = drive - strafe - turn;
-  float rightBack = drive + strafe - turn;
+  float rightFront = drive + strafe - turn;
+  float rightBack = drive - strafe - turn;
   float max = fmax(fmax(fabs(leftFront),fabs(leftBack)),fmax(fabs(rightFront),fabs(rightBack)));
   
   // normalize and rescale to maxSpeed
