@@ -13,10 +13,12 @@ public:
 
   float evaluate(float error);
   int findClosestPoint(Point *points, float x, float y, int start, int end);
-  bool runPeerPursuit(Point *points, float lookaheadOffset = 0, float kpOffset = 0, float kdOffset = 0);
+  bool runPurePursuit(Point *points);
+  Point* loadPointsFromCSV(std::string filepath);
 
 private:
   float MAX_TRANS_ACCEL;
   float MAX_ROT_ACCEL;
+  int lookahead;
 
 };
