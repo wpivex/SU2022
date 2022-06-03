@@ -7,6 +7,15 @@ ENCODER_DIAMETER(encoderDiameter) {
 
 }
 
-OdomRobot::getAngle() {
+float OdomRobot::getAngle() {
   return gyroSensor.heading();
+}
+
+void OdomRobot::setMotorVelocity(motor m, double percent) {
+
+  directionType d = percent > 0 ? forward : reverse;
+  percent = fabs(percent);
+  percent = fmin(100, fmax(-100, percent)); // bound between -100 and 100
+
+  m.spin(d, percent / 100.0 * 12.0, voltageUnits::volt);
 }

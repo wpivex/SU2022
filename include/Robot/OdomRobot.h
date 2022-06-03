@@ -16,5 +16,6 @@ public:
   inertial gyroSensor;
 
   float getAngle();
+  void setMotorVelocity(motor m, double percent);
 
 };
