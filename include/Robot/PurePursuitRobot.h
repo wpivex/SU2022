@@ -12,11 +12,13 @@ public:
   PurePursuitRobot(float distBetweenWheels, int32_t gyroPort, float encoderDiameter,
  triport::port left, triport::port right, triport::port back);
 
+  std::vector<std::vector<float>> init();
+
   int findClosestPoint(float x, float y, int start, int end);
   bool runPurePursuit();
   Point* loadPointsFromCSV(std::string filepath);
 
-  void drawTrajectory(VisualField f);
+  void drawTrajectory(VisualField *f);
 
 private:
   std::vector<Point> points;

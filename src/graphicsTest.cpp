@@ -6,6 +6,7 @@ void run() {
   VisualField f;
   Robot15 r;
   f.drawField();
+  r.drawTrajectory(&f);
 
   while (true) {
     wait(20, vex::msec);
