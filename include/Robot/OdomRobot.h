@@ -17,5 +17,6 @@ public:
 
   float getAngle();
   void setMotorVelocity(motor m, double percent);
+  void calibrateGyro();
 
 };

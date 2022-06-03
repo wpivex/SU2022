@@ -19,3 +19,16 @@ void OdomRobot::setMotorVelocity(motor m, double percent) {
 
   m.spin(d, percent / 100.0 * 12.0, voltageUnits::volt);
 }
+
+void OdomRobot::calibrateGyro() {
+  gyroSensor.calibrate();
+
+  while (gyroSensor.isCalibrating()) {
+    wait(20, msec);
+  }
+  wait(500, msec);
+  gyroSensor.resetRotation();
+  wait(500, msec);
+
+  log("done calibration");
+}

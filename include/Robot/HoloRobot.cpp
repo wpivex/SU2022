@@ -33,7 +33,7 @@ void HoloRobot::moveWithComponents(float drive, float strafe, float turn) {
   leftBack *= scalar;
   rightBack *= scalar;
 
-  log("LF: %f\nRF: %f\nLB: %f\nRB: %f", leftFront, rightFront, leftBack, rightBack);
+  //log("LF: %f\nRF: %f\nLB: %f\nRB: %f", leftFront, rightFront, leftBack, rightBack);
 
   setDrivePower(leftFront * scalar, rightFront * scalar, leftBack * scalar, rightBack * scalar);
 }
@@ -45,10 +45,11 @@ translationSpeed bounded (0, 100], speed for translations
 turnSpeed bounded [-100,100], where -100 means max counterclockwise, 0 is no spin, and 100 is max clockwise
 Eample: move(0, 100, 100) would cause robot to continouously move forward and spin at the same time */
 void HoloRobot::moveHeadingU(float absHeading, float translationSpeed, float turnSpeed) {
-  float relHeading = fmod(360 + absHeading - getAngle(), 360);
-  float headingRadians = relHeading * M_PI / 180.0;
-  float x = cos(headingRadians) * translationSpeed;
-  float y = sin(headingRadians) * translationSpeed;
+  log("Heading: %f\nTranslation: %f", getAngle(), absHeading * 180 / M_PI);
+  float headingRad = getAngle() * M_PI / 180;
+  float relHeading = absHeading - headingRad;
+  float x = cos(relHeading) * translationSpeed;
+  float y = sin(relHeading) * translationSpeed;
   moveWithComponents(x, y, turnSpeed);
 }
 
@@ -56,9 +57,18 @@ void HoloRobot::moveHeadingU(float absHeading, float translationSpeed, float tur
 // slightly inflexible implementation, but set to left joystick = translation, right joystick = rotation
 void HoloRobot::holoDriveTeleop() {
 
-  float drive = buttons.axis(BTN::LEFT_VERTICAL) * 100;
-  float strafe = buttons.axis(BTN::LEFT_HORIZONTAL) * 100;
-  float turn = buttons.axis(BTN::RIGHT_HORIZONTAL) * 100;
+  float drive = buttons.axis(BTN::LEFT_VERTICAL);
+  float strafe = buttons.axis(BTN::LEFT_HORIZONTAL);
+  float translation = distanceFormula(drive, strafe) * 100;
+  drive *= 100;
+  strafe *= 100;
 
-  moveWithComponents(drive, strafe, turn);
+  // Deadzone only applies if close to 0 on both axis
+  if (distanceFormula(drive, strafe) < 5) {
+    drive = 0;
+    strafe = 0;
+  }
+  float turn = pow(buttons.axis(BTN::RIGHT_HORIZONTAL), 3) * 100;
+
+  moveHeadingU(M_PI/2 - atan2(drive, strafe), translation, turn);
 }

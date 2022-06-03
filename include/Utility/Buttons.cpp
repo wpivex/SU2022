@@ -10,16 +10,10 @@ Buttons::Buttons() {
 
 }
 
-// bound [-1, 1]
+// bound [-100, 100]
 inline float Buttons::axis(BTN::Axis a) {
   float pos = AXES[a]->position();
-
-  // deadzone
-  if (fabs(pos) <= 5) {
-    return 0;
-  }
-  // normalize then cube to give more sensitivity to small inputs
-  return pow(pos / 100.0, 3);
+  return pos / 100;
 }
 
 inline bool Buttons::pressing(BTN::Button b) {
