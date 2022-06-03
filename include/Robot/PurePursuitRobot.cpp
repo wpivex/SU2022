@@ -7,15 +7,11 @@ PurePursuitRobot::PurePursuitRobot(float distBetweenWheels, int32_t gyroPort, fl
 
 }
 
-float PurePursuitRobot::evaluate(float error) {
+int PurePursuitRobot::findClosestPoint(std::vector<Point> *points, float x, float y, int start, int end) {
   return 0;
 }
 
-int PurePursuitRobot::findClosestPoint(Point *points, float x, float y, int start, int end) {
-  return 0;
-}
-
-bool PurePursuitRobot::runPurePursuit(Point *points) {
+bool PurePursuitRobot::runPurePursuit(std::vector<Point> *points) {
   PIDController pidX = PIDController(0, 0, 0);
   PIDController pidY = PIDController(0, 0, 0);
   PIDController pidRot = PIDController(0, 0, 0);
@@ -32,16 +28,14 @@ bool PurePursuitRobot::runPurePursuit(Point *points) {
 
   float errorSum = 0
 
-  int pointsLength = sizeof(points)/sizeof(points[0]);
-
-  while(li != pointsLength - 1 || distanceBetweenPoints(points[pointsLength-1].x, points[pointsLength-1].y, x, y) > STOP_DISTANCE_THRESHOLD) {
+  while(li != points.size - 1 || distanceBetweenPoints(points[points.size-1].x, points[points.size-1].y, x, y) > STOP_DISTANCE_THRESHOLD) {
 
     // Find closest waypoint within 5 points of the current waypoint
     ci = this.findClosestPoint(points, x, y, ci, ci + 30);
   
     // Update lookahead distance
     li = ci
-    while(li < pointsLength - 1 && distanceBetweenPoints(points[li].x, points[li].y, points[ci].x, points[ci].y) < lookahead) {
+    while(li < points.size - 1 && distanceBetweenPoints(points[li].x, points[li].y, points[ci].x, points[ci].y) < lookahead) {
       li += 1;
     }
 
@@ -69,15 +63,15 @@ bool PurePursuitRobot::runPurePursuit(Point *points) {
   return false;
 }
 
-Point* loadPointsFromCSV(std::string filepath) {
+std::vector<Point> loadPointsFromCSV(std::string filepath) {
   int byteLen = Brain.SDcard.size(filename.c_str()) + 10; // just in case this is off for some reason
   unsigned char* c = new unsigned char[byteLen];
   Brain.SDcard.loadfile(filename.c_str(), c, byteLen);
 
   int lineCount = 0;
   for(int i=0; i<byteLen; i++) { if(i != byteLen - 1 && c[i] == 13 && c[i+1] == 10) { lineCount++; } }
-  Point* points = [];
-  for(int i = 0; i < lineCount - 3; ++i) { points[i] = new Point(); }
+  std::vector<Point> *points = [];
+  for(int i = 0; i < lineCount - 3; ++i) { points.push_back(new Point()); }
 
   // TODO: read in lookahead, p, and d
   std::string s = "";
