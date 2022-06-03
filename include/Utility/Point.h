@@ -3,7 +3,8 @@
 class Point {
 
 public:
-  Point();
+  Point(float x, float y, float theta);
   float x;
   float y;
+  float theta;
 };

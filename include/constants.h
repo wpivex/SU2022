@@ -2,6 +2,7 @@
 #include <string>
 #include <queue>
 #include "Utility/Buttons.cpp"
+#include <cmath>
 
 vex::brain Brain;
 vex::competition Competition;
@@ -32,6 +33,8 @@ const float MAX_VOLTS = 12.0; // maximum volts for vex motors
 
 static const int SCREEN_WIDTH = 480;
 static const int SCREEN_HEIGHT = 240;
+
+static const float MAX_SPEED = 1;
 
 static inline float distanceFormula(float dx, float dy) {
   return sqrt(dx*dx + dy*dy);
@@ -94,4 +97,16 @@ static inline void log(const char *f, Args ... args) {
     pch = strtok (NULL, "\n");
     row++;
   }
+}
+
+float distanceBetweenPoints(float x1, float y1, float x2, float y2) {
+  return sqrt( (pow((x1-x2), 2))+(pow((y1-y2), 2)) );
+}
+
+float hypo(float s1, float s2) {
+  return sqrt(s1*s1 + s2*s2);
+}
+
+float clamp(float value, float mn, float mx) {
+  return fmax(mn, fmin(mx, value));
 }

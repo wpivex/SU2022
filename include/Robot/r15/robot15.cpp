@@ -1,5 +1,5 @@
 #include "robot15.h"
-#include "Robot/PeerPursuitRobot.h"
+#include "Robot/PurePursuitRobot.h"
 
 Robot15::Robot15() : BaseRobot(9.5, PORT16), leftMotorA(0), leftMotorB(0), leftMotorC(0), leftMotorD(0), rightMotorA(0), rightMotorB(0), 
   rightMotorC(0), rightMotorD(0) {
