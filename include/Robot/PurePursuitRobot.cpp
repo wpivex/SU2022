@@ -83,7 +83,7 @@ std::vector<Point> loadPointsFromCSV(std::string filepath) {
 
   int lineCount = 0;
   for(int i=0; i<byteLen; i++) { if(i != byteLen - 1 && c[i] == 13 && c[i+1] == 10) { lineCount++; } }
-  std::vector<Point> *points;
+  std::vector<Point> points;
   points.reserve(lineCount-3);
   for(int i = 0; i < lineCount - 3; ++i) { points.push_back(Point()); }
 
@@ -95,9 +95,9 @@ std::vector<Point> loadPointsFromCSV(std::string filepath) {
     if(i != byteLen - 1 && c[i] == 13 && c[i+1] == 10) {
       int commaIndex1 = s.find(",");
       int commaIndex2 = s.find(commaIndex1+1, s.end(), ",");
-      points[i].x = atof(s.substr(0, commaIndex1).c_str());
-      points[i].y = atof(s.substr(commaIndex1 + 1, commaIndex2 - commaIndex1 + 1).c_str());
-      points[i].theta = atof(s.substr(commaIndex2 + 1, s.length() - commaIndex2 + 1).c_str());
+      points[currInd].x = atof(s.substr(0, commaIndex1).c_str());
+      points[currInd].y = atof(s.substr(commaIndex1 + 1, commaIndex2 - commaIndex1 + 1).c_str());
+      points[currInd].theta = atof(s.substr(commaIndex2 + 1, s.length() - commaIndex2 + 1).c_str());
       currInd++;
       s = "";
     }
