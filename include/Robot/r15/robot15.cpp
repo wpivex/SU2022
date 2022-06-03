@@ -1,3 +1,4 @@
+#pragma once
 #include "robot15.h"
 
 Robot15::Robot15() : PurePursuitRobot(0, 0, 0,
@@ -125,3 +126,6 @@ float Robot15::getDriveCurrent() {
     + rightMotorB.current() + rightMotorC.current() + rightMotorD.current();
   return currentSum / 8;
 }
+
+void Robot15::setDrivePower(float velFL, float velFR, float velBL, float velBR) {};
+void Robot15::stopDrive() {}; // stop all drive motors

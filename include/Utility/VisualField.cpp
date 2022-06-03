@@ -1,3 +1,4 @@
+#pragma once
 #include "VisualField.h"
 
 // Field is 12' x 12', so each tile is 24 inches with 6x6 tiles

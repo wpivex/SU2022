@@ -1,13 +1,12 @@
 #pragma once
-#include "OdomRobot.h"
-#include "HoloRobot.h"
+#include "HoloRobot.cpp"
 #include "Utility/Point.h"
 #include "vex.h"
 #include "constants.h"
 #include "Utility/VisualField.cpp"
 #include "Utility/PIDController.cpp"
 
-class PurePursuitRobot : public OdomRobot, HoloRobot {
+class PurePursuitRobot : public HoloRobot {
 
 public:
   PurePursuitRobot(float distBetweenWheels, int32_t gyroPort, float encoderDiameter,

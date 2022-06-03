@@ -2,9 +2,7 @@
 
 
 PurePursuitRobot::PurePursuitRobot(float distBetweenWheels, int32_t gyroPort, float encoderDiameter,
- triport::port left, triport::port right, triport::port back): OdomRobot(distBetweenWheels, gyroPort, encoderDiameter,
-  left, right,  back), HoloRobot(0,0) {
-
+ triport::port left, triport::port right, triport::port back): HoloRobot(distBetweenWheels, gyroPort, encoderDiameter, left, right, back) {
 }
 
 int PurePursuitRobot::findClosestPoint(float x, float y, int start, int end) {
