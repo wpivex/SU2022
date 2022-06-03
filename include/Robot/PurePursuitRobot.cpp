@@ -8,7 +8,20 @@ PurePursuitRobot::PurePursuitRobot(float distBetweenWheels, int32_t gyroPort, fl
 }
 
 int PurePursuitRobot::findClosestPoint(std::vector<Point> *points, float x, float y, int start, int end) {
-  return 0;
+  start = fmax(start, 0);
+  end = fmin(end, points->size() - 1);
+
+  int minIndex = start;
+  float minDist = distanceBetweenPoints(x, y, points[start].x, points[start].y);
+  start += 1;
+  // while start < end:
+  //     dist = Utility.distance(x, y, points[start].x, points[start].y)
+  //     if dist < minDist:
+  //         minIndex = start
+  //         minDist = dist
+  //     start += 1
+
+  return minIndex;
 }
 
 bool PurePursuitRobot::runPurePursuit(std::vector<Point> *points) {
@@ -70,8 +83,9 @@ std::vector<Point> loadPointsFromCSV(std::string filepath) {
 
   int lineCount = 0;
   for(int i=0; i<byteLen; i++) { if(i != byteLen - 1 && c[i] == 13 && c[i+1] == 10) { lineCount++; } }
-  std::vector<Point> *points = [];
-  for(int i = 0; i < lineCount - 3; ++i) { points.push_back(new Point()); }
+  std::vector<Point> *points;
+  points.reserve(lineCount-3);
+  for(int i = 0; i < lineCount - 3; ++i) { points.push_back(Point()); }
 
   // TODO: read in lookahead, p, and d
   std::string s = "";
