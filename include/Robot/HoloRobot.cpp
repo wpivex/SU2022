@@ -40,7 +40,7 @@ void HoloRobot::moveWithComponents(float drive, float strafe, float turn) {
 
 /*
 move(...) is nonblocking, takes in absolute heading
-absHeading, bounded [0,365), is strafe direction
+absHeading, bounded [0,2pi), is strafe direction
 translationSpeed bounded (0, 100], speed for translations
 turnSpeed bounded [-100,100], where -100 means max counterclockwise, 0 is no spin, and 100 is max clockwise
 Eample: move(0, 100, 100) would cause robot to continouously move forward and spin at the same time */
@@ -68,7 +68,19 @@ void HoloRobot::holoDriveTeleop() {
     drive = 0;
     strafe = 0;
   }
-  float turn = pow(buttons.axis(BTN::RIGHT_HORIZONTAL), 3) * 100;
+
+  float KP = 2;
+  float turnControl = buttons.axis(BTN::RIGHT_HORIZONTAL) * 100;
+  if (fabs(turnControl) < 5) turnControl = 0;
+
+  float turn;
+  if (turnControl == 0) { // Hold theta if not rotating
+    if (timer::system() - time < 500) targetHeading = getAngle();
+    else turn = getAngleDiff(targetHeading, getAngle()) * KP;
+  } else {
+    turn = turnControl;
+    time = timer::system();
+  }
 
   moveHeadingU(M_PI/2 - atan2(drive, strafe), translation, turn);
 }

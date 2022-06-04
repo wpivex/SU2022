@@ -14,5 +14,8 @@ public:
   virtual void setDrivePower(float velFL, float velFR, float velBL, float velBR) = 0;
   virtual void stopDrive() = 0; // stop all drive motors
 
+protected:
+    float targetHeading = 0;
+    int time = -1;
 
 };
