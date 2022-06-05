@@ -83,7 +83,7 @@ template <class ... Args>
 static inline void log(const char *f, Args ... args) {
 
   Brain.Screen.clearScreen();
-  Brain.Screen.setFont(vex::mono20);
+  Brain.Screen.setFont(vex::mono30);
   int row = 1;
 
   char buffer[200];

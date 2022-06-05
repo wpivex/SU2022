@@ -44,9 +44,7 @@ void HoloRobot::moveWithComponents(float drive, float strafe, float turn) {
   leftBack *= scalar;
   rightBack *= scalar;
 
-  //log("LF: %f\nRF: %f\nLB: %f\nRB: %f", leftFront, rightFront, leftBack, rightBack);
-
-  setDrivePower(leftFront * scalar, rightFront * scalar, leftBack * scalar, rightBack * scalar);
+  setDrivePower(leftFront, rightFront, leftBack, rightBack);
 }
 
 /*
@@ -56,7 +54,7 @@ translationSpeed bounded (0, 100], speed for translations
 turnSpeed bounded [-100,100], where -100 means max counterclockwise, 0 is no spin, and 100 is max clockwise
 Eample: move(0, 100, 100) would cause robot to continouously move forward and spin at the same time */
 void HoloRobot::moveHeadingU(float absHeading, float translationSpeed, float turnSpeed) {
-  log("Heading: %f\nTranslation: %f", getAngle(), absHeading * 180 / M_PI);
+  //log("Heading: %f\nTranslation: %f", getAngle(), absHeading * 180 / M_PI);
   float relHeading = absHeading - getAngle(true);
   float x = cos(relHeading) * translationSpeed;
   float y = sin(relHeading) * translationSpeed;
@@ -67,11 +65,14 @@ void HoloRobot::moveHeadingU(float absHeading, float translationSpeed, float tur
 // slightly inflexible implementation, but set to left joystick = translation, right joystick = rotation
 void HoloRobot::holoDriveTeleop() {
 
-  float drive = buttons.axis(BTN::LEFT_VERTICAL);
-  float strafe = buttons.axis(BTN::LEFT_HORIZONTAL);
-  float translation = distanceFormula(drive, strafe) * 100;
-  drive *= 100;
-  strafe *= 100;
+  if (buttons.pressed(BTN::L1)) {
+    isFieldCentric = !isFieldCentric;
+    logController(isFieldCentric ? "Field Centric" : "Robot Centric");
+  }
+
+  float drive = buttons.axis(BTN::LEFT_VERTICAL) * 100;
+  float strafe = buttons.axis(BTN::LEFT_HORIZONTAL) * 100;
+  float translation = distanceFormula(drive, strafe);
 
   // Deadzone only applies if close to 0 on both axis
   if (distanceFormula(drive, strafe) < 5) {
@@ -85,14 +86,15 @@ void HoloRobot::holoDriveTeleop() {
 
   float turn;
   if (turnControl == 0) { // Hold theta if not rotating
-    if (timer::system() - time < 500) targetHeading = getAngle(); // grace period to shave off momentum before locking in heading
+    if (timer::system() - time < 1000) targetHeading = getAngle(); // grace period to shave off momentum before locking in heading
     else turn = getAngleDiff(targetHeading, getAngle()) * KP;
   } else {
     turn = turnControl;
     time = timer::system();
   }
 
-  moveHeadingU(M_PI/2 - atan2(drive, strafe), translation, turn);
+  if (isFieldCentric) moveHeadingU(M_PI/2 - atan2(drive, strafe), translation, turn);
+  else moveWithComponents(drive, strafe, turn);
 }
 
 void HoloRobot::goToPoint(float x, float y, float theta) {

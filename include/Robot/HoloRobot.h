@@ -23,5 +23,6 @@ public:
 protected:
     float targetHeading = 0;
     int time = -1;
+    bool isFieldCentric = true;
 
 };
