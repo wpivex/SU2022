@@ -23,6 +23,7 @@ public:
   void calibrateGyro();
 
   void goToPoint(float x, float y, float theta);
+  void teleop() {};
   
 
 };

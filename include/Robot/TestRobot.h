@@ -10,6 +10,7 @@ public:
   void setDrivePower(float velFL, float velFR, float velBL, float velBR);
   void stopDrive(); // stop all drive motors
   void setBrakeType(brakeType b);
+  void teleop();
 
 
 };

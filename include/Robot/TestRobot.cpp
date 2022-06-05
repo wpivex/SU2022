@@ -10,6 +10,11 @@ TestRobot::TestRobot(int32_t gyroPort, float encoderDiameter, triport::port left
   setBrakeType(coast);
 }
 
+void TestRobot::teleop() {
+  holoDriveTeleop();
+  buttons.updateButtonState();
+}
+
 
 void TestRobot::setDrivePower(float velFL, float velFR, float velBL, float velBR) {
   setMotorVelocity(fl, velFL);

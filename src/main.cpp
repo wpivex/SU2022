@@ -11,7 +11,7 @@ int main() {
   r.calibrateGyro();
   
   while (true) {
-    r.holoDriveTeleop();
+    r.teleop();
     wait(20, msec);
   }
 
