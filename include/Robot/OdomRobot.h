@@ -16,7 +16,13 @@ public:
   inertial gyroSensor;
 
   float getAngle();
+  float getX();
+  float getY();
+  
   void setMotorVelocity(motor m, double percent);
   void calibrateGyro();
+
+  void goToPoint(float x, float y, float theta);
+  
 
 };

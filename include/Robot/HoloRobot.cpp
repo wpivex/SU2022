@@ -75,7 +75,7 @@ void HoloRobot::holoDriveTeleop() {
 
   float turn;
   if (turnControl == 0) { // Hold theta if not rotating
-    if (timer::system() - time < 500) targetHeading = getAngle();
+    if (timer::system() - time < 500) targetHeading = getAngle(); // grace period to shave off momentum before locking in heading
     else turn = getAngleDiff(targetHeading, getAngle()) * KP;
   } else {
     turn = turnControl;

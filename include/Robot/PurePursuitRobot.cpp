@@ -9,6 +9,13 @@ PurePursuitRobot::PurePursuitRobot(float distBetweenWheels, int32_t gyroPort, fl
    }
 }
 
+void PurePursuitRobot::drawTrajectory(VisualField *f) {
+  Brain.Screen.setPenColor(green);
+  for (Point p : points) {
+    f->drawPoint(p.x, p.y);
+  }  
+}
+
 int PurePursuitRobot::findClosestPoint(float x, float y, int start, int end) {
   start = fmax(start, 0);
   end = fmin(end, points.size() - 1);
@@ -16,76 +23,56 @@ int PurePursuitRobot::findClosestPoint(float x, float y, int start, int end) {
   int minIndex = start;
   float minDist = distanceBetweenPoints(x, y, points[start].x, points[start].y);
   start += 1;
-  // while start < end:
-  //     dist = Utility.distance(x, y, points[start].x, points[start].y)
-  //     if dist < minDist:
-  //         minIndex = start
-  //         minDist = dist
-  //     start += 1
-
+  while (start < end) {
+    float dist = distanceBetweenPoints(x, y, points[start].x, points[start].y);
+    if (dist < minDist) {
+      minIndex = start;
+      minDist = dist;
+    }
+    start += 1;
+  }
   return minIndex;
 }
 
-void PurePursuitRobot::drawTrajectory(VisualField *f) {
-  Brain.Screen.setPenColor(green);
-  for (Point p : points) {
-    f->drawPoint(p.x, p.y);
-  }  
+void PurePursuitRobot::runPurePursuit() {
 
-}
-/*
-bool PurePursuitRobot::runPurePursuit() {
-  PID pidX = PID(0, 0, 0);
-  PID pidY = PID(0, 0, 0);
-  PID pidRot = PID(0, 0, 0);
-  PID pidFinal = PID(0, 0, 0); // for the last point
-  
-  float xvel = 0; // velocities in inches/second
-  float yvel = 0;
-  float tvel = 0; // angular velocity
+  const float KP_ROTATION = 1;
+  float lookahead = 6; // lookahead distance in inches
+
   int li = 0; // lookahead index
-  int ci = 0; // closest index
-  float x = 0;
-  float y = 0;
-  float theta = 0;
 
-  float errorSum = 0;
+  while(li < points.size() - 1) { // loop until second to last node, last node is just a goToPoint()
 
-  while(li != points.size - 1 || distanceBetweenPoints(points[points.size-1].x, points[points.size-1].y, x, y) > STOP_DISTANCE_THRESHOLD) {
+    // Get current position of robot through odometry
+    float x = getX();
+    float y = getY();
+    float theta = getAngle();
 
-    // Find closest waypoint within 5 points of the current waypoint
-    ci = this.findClosestPoint(points, x, y, ci, ci + 30);
+    // Find closest waypoint within 30 points of the current waypoint
+    float ci = findClosestPoint(x, y, ci, ci + 30);
   
     // Update lookahead distance
-    li = ci
-    while(li < points.size - 1 && distanceBetweenPoints(points[li].x, points[li].y, points[ci].x, points[ci].y) < lookahead) {
+    li = ci;
+    while(li < points.size() - 1 && distanceBetweenPoints(points[li].x, points[li].y, points[ci].x, points[ci].y) < lookahead) {
       li += 1;
-    }
-
-    // Calculate target velocities
-    float targetXVel = pidX.tick(points[li].x - x);
-    float targetYVel = pidY.tick(points[li].y - y);
-
-    // Constrain maximum robot speed
-    float mag = hypo(targetXVel, targetYVel);
-    float scalar = Math.min(1, MAX_SPEED / mag);
-    targetXVel *= scalar;
-    targetYVel *= scalar;
+    }    
       
     // Calculate heading delta (turn the fastest way)
-    float dtheta = (points[li].theta - theta) % (2*PI);
-    if(dtheta > PI) {
-      dtheta -= 2*PI;
+    float dtheta = fmod(points[li].theta - theta, 2*M_PI);
+    if(dtheta > M_PI) {
+      dtheta -= 2*M_PI;
     }
-    targetTVel = pidRot.tick(dtheta);
+    float tvel = fmin(100, dtheta * KP_ROTATION);
 
-    // set x, y, and theta velocities
-    moveWithComponents(xvel, yvel, tvel);
+    // Move towards lookahead point
+    moveHeadingU(atan2(points[li].y - y, points[li].x - x), 100, tvel);
   }
 
-  return false;
+  // For final lookahead point, just utilize the goToPoint function to take advantage of well-tuned PID for stopping with some threshold
+  goToPoint(points.back().x, points.back().y, points.back().theta);
 }
 
+/*
 std::vector<Point> loadPointsFromCSV(std::string filepath) {
   int byteLen = Brain.SDcard.size(filename.c_str()) + 10; // just in case this is off for some reason
   unsigned char* c = new unsigned char[byteLen];

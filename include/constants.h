@@ -99,14 +99,14 @@ static inline void log(const char *f, Args ... args) {
   }
 }
 
-float distanceBetweenPoints(float x1, float y1, float x2, float y2) {
+static inline float distanceBetweenPoints(float x1, float y1, float x2, float y2) {
   return sqrt( (pow((x1-x2), 2))+(pow((y1-y2), 2)) );
 }
 
-float hypo(float s1, float s2) {
+static inline float hypo(float s1, float s2) {
   return sqrt(s1*s1 + s2*s2);
 }
 
-float clamp(float value, float mn, float mx) {
+static inline float clamp(float value, float mn, float mx) {
   return fmax(mn, fmin(mx, value));
 }
