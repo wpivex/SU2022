@@ -15,7 +15,7 @@ public:
 
   inertial gyroSensor;
 
-  float getAngle();
+  float getAngle(bool isRadians = false);
   float getX();
   float getY();
   

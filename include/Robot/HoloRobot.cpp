@@ -9,6 +9,17 @@ OdomRobot(gyroPort, encoderDiameter,
   
 }
 
+// From absolute field coordinates, get coordinates relative to robot (with respect to robot heading)
+Point HoloRobot::fieldToRelCoords(float absX, int absY) {
+
+  // Convert field coords to relative coords
+    float dx = absX - getX();
+    float dy = absY - getY();
+    float translationAngle = M_PI/2 - atan2(dy, dx);
+    float dAngle = translationAngle - getAngle(true);
+    return Point(cos(dAngle), sin(dAngle));
+}
+
 // move(...) is nonblocking, and should be called each tick
 // drive, strafe, and turn have domain [-100, 100]
 void HoloRobot::moveWithComponents(float drive, float strafe, float turn) {
@@ -46,8 +57,7 @@ turnSpeed bounded [-100,100], where -100 means max counterclockwise, 0 is no spi
 Eample: move(0, 100, 100) would cause robot to continouously move forward and spin at the same time */
 void HoloRobot::moveHeadingU(float absHeading, float translationSpeed, float turnSpeed) {
   log("Heading: %f\nTranslation: %f", getAngle(), absHeading * 180 / M_PI);
-  float headingRad = getAngle() * M_PI / 180;
-  float relHeading = absHeading - headingRad;
+  float relHeading = absHeading - getAngle(true);
   float x = cos(relHeading) * translationSpeed;
   float y = sin(relHeading) * translationSpeed;
   moveWithComponents(x, y, turnSpeed);
@@ -83,4 +93,22 @@ void HoloRobot::holoDriveTeleop() {
   }
 
   moveHeadingU(M_PI/2 - atan2(drive, strafe), translation, turn);
+}
+
+void HoloRobot::goToPoint(float x, float y, float theta) {
+
+  PID pidX(1, 0, 0, 0.5, 1);
+  PID pidY(1, 0, 0, 0.5, 1);
+  PID pidT(1, 0, 0, 0.5, 1);
+
+  while (!pidX.isCompleted() || !pidY.isCompleted() || !pidT.isCompleted()) {
+
+    Point p = fieldToRelCoords(x, y);
+
+    moveWithComponents(pidY.tick(p.y), pidX.tick(p.x), pidT.tick(theta - getAngle(true))); 
+
+  }
+
+  stopDrive();
+
 }

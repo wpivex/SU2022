@@ -7,8 +7,10 @@ ENCODER_DIAMETER(encoderDiameter) {
 
 }
 
-float OdomRobot::getAngle() {
-  return gyroSensor.heading();
+float OdomRobot::getAngle(bool isRadians) {
+  float h = gyroSensor.heading();
+  if (isRadians) h *= M_PI / 180;
+  return h;
 }
 
 void OdomRobot::setMotorVelocity(motor m, double percent) {
