@@ -40,21 +40,27 @@ float OdomRobot::getRightEncoderDistance() {
 void OdomRobot::tickOdom() {
 
   float deltaR = getRightEncoderAbsolute() - recordedR;
+  float deltaM = getMidEncoderAbsolute() - recordedM;
   float deltaL = getLeftEncoderAbsolute() - recordedL;
   float deltaTheta = bound180(gyroSensor.heading()- recordedTheta)*M_PI/180;
   
   // Split vector to X and Y 
-  float dist = (deltaL+deltaR)/2;
+  float distY = (deltaL+deltaR)/2;  
   float deltaX;
   float deltaY;
+  float theta = gyroSensor.heading()*M_PI/180, rTheta = recordedTheta*M_PI/180;
+
   if(deltaTheta != 0){
-    float radius = dist/deltaTheta;
-    deltaX = radius * (cos((gyroSensor.heading()*M_PI)/180) - cos(recordedTheta*M_PI/180));
-    deltaY = radius * (sin((gyroSensor.heading()*M_PI)/180) - sin(recordedTheta*M_PI/180));
+    float radiusY = distY/deltaTheta;
+    deltaX = radiusY * (cos(theta) - cos(rTheta));
+    deltaY = radiusY * (sin(theta) - sin(rTheta));
+    float radiusX = deltaM/deltaTheta;
+    deltaX += radiusX * (sin(theta) - sin(rTheta));;
+    deltaY += radiusX * (cos(theta) - cos(rTheta));
   } else {
     // prevent divison by 0, when robot has travelled perfectly straight
-    deltaX = dist * (cos((gyroSensor.heading()*M_PI)/180));
-    deltaY = dist * (sin((recordedTheta*M_PI)/180));
+    deltaX = distY * (cos((gyroSensor.heading()*M_PI)/180));
+    deltaY = distY * (sin((recordedTheta*M_PI)/180));
   }
   
   //Add X and Y distance to current values
