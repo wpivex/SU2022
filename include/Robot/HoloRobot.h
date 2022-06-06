@@ -12,7 +12,7 @@ public:
   Point fieldToRelCoords(float absX, int absY);
 
   void moveWithComponents(float drive, float strafe, float turn);
-  void moveHeadingU(float absHeading, float translationSpeed, float turnSpeed);
+  void moveHeadingU(float absHeading, float translationSpeed, float turnSpeed, bool isFieldCentric = true);
   void holoDriveTeleop();
   void goToPoint(float x, float y, float theta);
 

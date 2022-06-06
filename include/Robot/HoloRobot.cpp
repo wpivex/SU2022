@@ -53,12 +53,20 @@ absHeading, bounded [0,2pi), is strafe direction
 translationSpeed bounded (0, 100], speed for translations
 turnSpeed bounded [-100,100], where -100 means max counterclockwise, 0 is no spin, and 100 is max clockwise
 Eample: move(0, 100, 100) would cause robot to continouously move forward and spin at the same time */
-void HoloRobot::moveHeadingU(float absHeading, float translationSpeed, float turnSpeed) {
+void HoloRobot::moveHeadingU(float absHeading, float translationSpeed, float turnSpeed, bool isFieldCentric) {
   //log("Heading: %f\nTranslation: %f", getAngle(), absHeading * 180 / M_PI);
-  float relHeading = absHeading - getAngle(true);
+  float relHeading = absHeading - (isFieldCentric ? getAngle(true) : 0);
   float x = cos(relHeading) * translationSpeed;
   float y = sin(relHeading) * translationSpeed;
   moveWithComponents(x, y, turnSpeed);
+}
+
+// https://www.desmos.com/calculator/7qnjjtyrx2
+const float JOYSTICK_SNAP = 0.2;
+float joystickFunction(float ang, int t) {
+  
+  const float p2 = M_PI/2;
+  return (ang - JOYSTICK_SNAP - t * p2) * (p2 / (p2 - 2*JOYSTICK_SNAP)) + p2 * t;
 }
 
 // Maps full left joystick to translation and horizontal right joystick to rotation, calls moveU
@@ -93,8 +101,21 @@ void HoloRobot::holoDriveTeleop() {
     time = timer::system();
   }
 
-  if (isFieldCentric) moveHeadingU(M_PI/2 - atan2(drive, strafe), translation, turn);
-  else moveWithComponents(drive, strafe, turn);
+  float ang = M_PI/2 - atan2(drive, strafe); // ang bounded [0, 2pi), 0 at north, positive clockwise
+
+  // "Snap" joystick to cardinal directions if close, and linearly interpolate otherwise for a mapping that is continuous
+  float aang; // adjusted angle
+  if (ang < JOYSTICK_SNAP) aang = 0;
+  else if (ang < M_PI/2 - JOYSTICK_SNAP) aang = joystickFunction(ang, 0);
+  else if (ang < M_PI/2 + JOYSTICK_SNAP) aang = M_PI/2;
+  else if (ang < M_PI - JOYSTICK_SNAP) aang = joystickFunction(ang, 1);
+  else if (ang < M_PI + JOYSTICK_SNAP) aang = M_PI;
+  else if (ang < 3*M_PI/2 - JOYSTICK_SNAP) aang = joystickFunction(ang, 2);
+  else if (ang < 3*M_PI/2 + JOYSTICK_SNAP) aang = 3*M_PI/2;
+  else if (ang < 2*M_PI - JOYSTICK_SNAP) aang = joystickFunction(ang, 3);
+  else aang = 0;
+  log("Raw: %.1f\nAdjusted: %.1f", ang * 180 / M_PI, aang * 180 / M_PI);
+  moveHeadingU(aang, translation, turn, isFieldCentric);
 }
 
 void HoloRobot::goToPoint(float x, float y, float theta) {
