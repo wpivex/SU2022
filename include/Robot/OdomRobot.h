@@ -20,8 +20,6 @@ public:
   float getAngle(bool isRadians = false);
   float getX();
   float getY();
-  
-  void setMotorVelocity(motor m, double percent);
 
   void goToPoint(float x, float y, float theta);
   void teleop() {};

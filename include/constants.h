@@ -36,6 +36,15 @@ static const int SCREEN_HEIGHT = 240;
 
 static const float MAX_SPEED = 1;
 
+void setMotorVelocity(vex::motor m, double percent) {
+
+  vex::directionType d = percent > 0 ? vex::forward : vex::reverse;
+  percent = fabs(percent);
+  percent = fmin(100, fmax(-100, percent)); // bound between -100 and 100
+
+  m.spin(d, percent / 100.0 * 12.0, vex::voltageUnits::volt);
+}
+
 static inline float distanceFormula(float dx, float dy) {
   return sqrt(dx*dx + dy*dy);
 }
