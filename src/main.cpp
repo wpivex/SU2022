@@ -1,16 +1,18 @@
 // INCLUDE RIGHT VERSION OF ROBOT (15 OR 24)
 // #include "main15.cpp"
-#include "main15.cpp"
-#include "graphicsTest.cpp"
+#include "Robot/TestRobot.cpp"
+//#include "graphicsTest.cpp"
 
 using namespace vex;
 
 int main() {
 
-  run();
-  return 0;
-
-  Competition.bStopAllTasksBetweenModes = true;
-  return mainFunc();
+  TestRobot r(PORT3, 1, Brain.ThreeWirePort.A, Brain.ThreeWirePort.B, Brain.ThreeWirePort.C);
+  r.calibrateGyro();
+  
+  while (true) {
+    r.teleop();
+    wait(20, msec);
+  }
 
 }

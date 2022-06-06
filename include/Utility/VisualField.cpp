@@ -1,3 +1,4 @@
+#pragma once
 #include "VisualField.h"
 
 // Field is 12' x 12', so each tile is 24 inches with 6x6 tiles
@@ -14,7 +15,7 @@ int VisualField::getX(float inches, bool isTileUnits) {
 
 int VisualField::getY(float inches, bool isTileUnits) {
   if (isTileUnits) inches *= 24;
-  return MARGIN + 204 - inchesToPixels(inches);
+  return MARGIN + inchesToPixels(inches);
 }
 
 void VisualField::drawLine(float x1, float y1, float x2, float y2, bool isTileUnits) {
