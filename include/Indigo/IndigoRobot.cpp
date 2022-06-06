@@ -23,8 +23,8 @@ IndigoRobot::IndigoRobot():
 
 void IndigoRobot::teleop() {
 
-  setLeftVelocity(forward,buttons.axis(BTN::LEFT_VERTICAL));
-  setRightVelocity(forward,buttons.axis(BTN::RIGHT_VERTICAL));
+  setRightVelocity(reverse,buttons.axis(BTN::LEFT_VERTICAL) * 100);
+  setLeftVelocity(reverse,buttons.axis(BTN::RIGHT_VERTICAL) * 100);
 
   if (buttons.pressed(BTN::A)) {
     targetShooterVelocity = (targetShooterVelocity == 100) ? 0 : 100;
@@ -38,14 +38,14 @@ void IndigoRobot::teleop() {
   else if (buttons.pressed(BTN::R2)) setMotorVelocity(intake, -100);
   else setMotorVelocity(intake, 0);
 
-  if (buttons.pressed(BTN::A)) {
+  if (buttons.pressed(BTN::L1)) {
     pistonOn = true;
     pistonTime = timer::system();
-    piston.set(true);
+    piston.set(false);
   }
-  if (pistonOn &&isTimeout(pistonTime, 0.1)) {
+  if (pistonOn && isTimeout(pistonTime, 0.1)) {
       pistonOn = false;
-      piston.set(false);
+      piston.set(true);
   }
   b.updateButtonState();
 }

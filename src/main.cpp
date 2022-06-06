@@ -16,7 +16,7 @@ int main() {
   //r.calibrateGyro();
   //task t(odom);
   IndigoRobot r;
-  r.piston.set(false);
+  r.piston.set(true);
   while (true) {
     r.teleop();
     wait(20, msec);
