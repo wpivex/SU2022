@@ -3,7 +3,7 @@
 class TestRobot : public HoloRobot {
 
 public:
-  TestRobot(int32_t gyroPort, float encoderDiameter, triport::port left, triport::port right, triport::port back);
+  TestRobot(int32_t gyroPort, float encoderDiameter, float distWheel, triport::port left, triport::port right, triport::port back);
 
   motor fl, fr, bl, br;
 

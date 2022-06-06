@@ -5,11 +5,15 @@
 
 using namespace vex;
 
-int main() {
+TestRobot r(PORT3, 1, 10, Brain.ThreeWirePort.A, Brain.ThreeWirePort.B, Brain.ThreeWirePort.C);
 
-  TestRobot r(PORT3, 1, Brain.ThreeWirePort.A, Brain.ThreeWirePort.B, Brain.ThreeWirePort.C);
+int odom(){
+  return r.odomTask();
+}
+
+int main() {
   r.calibrateGyro();
-  
+  task t(odom);
   while (true) {
     r.teleop();
     wait(20, msec);

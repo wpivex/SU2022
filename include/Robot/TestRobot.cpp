@@ -1,7 +1,7 @@
 #include "TestRobot.h"
 
-TestRobot::TestRobot(int32_t gyroPort, float encoderDiameter, triport::port left, triport::port right, triport::port back):
-  HoloRobot(gyroPort, encoderDiameter, left, right, back),
+TestRobot::TestRobot(int32_t gyroPort, float encoderDiameter, float distWheel, triport::port left, triport::port right, triport::port back):
+  HoloRobot(gyroPort, encoderDiameter, distWheel, left, right, back),
   fl(PORT12, ratio18_1, false),
   fr(PORT1, ratio18_1, true),
   bl(PORT20, ratio18_1, false),

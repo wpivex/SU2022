@@ -6,7 +6,7 @@
 class HoloRobot : public OdomRobot {
 
 public:
-  HoloRobot(int32_t gyroPort, float encoderDiameter,
+  HoloRobot(int32_t gyroPort, float encoderDiameter, float wheelDist,
  triport::port left, triport::port right, triport::port back);
 
   Point fieldToRelCoords(float absX, int absY);
