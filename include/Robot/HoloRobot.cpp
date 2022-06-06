@@ -102,6 +102,7 @@ void HoloRobot::holoDriveTeleop() {
   }
 
   float ang = M_PI/2 - atan2(drive, strafe); // ang bounded [0, 2pi), 0 at north, positive clockwise
+  if (ang < 0) ang += 2*M_PI;
 
   // "Snap" joystick to cardinal directions if close, and linearly interpolate otherwise for a mapping that is continuous
   float aang; // adjusted angle
