@@ -54,17 +54,17 @@ void EricRobot::teleop() {
   if (intakeOn) setIntakeVelocity(100);
   else setIntakeVelocity(0);
 
-  if (buttons.pressed(BTN::R2) && !spinnerOn) {
-    spinner.spin(forward, 100, pct);
-    spinnerOn = true;
+  if (buttons.pressed(BTN::R2)) {
+    spinnerTarget = 55;
     spinnerTime = timer::system();
   }
-  if (spinnerOn && isTimeout(spinnerTime, 0.4) && !buttons.pressing(BTN::R2)) {
-    spinner.spin(reverse, 100, pct);
-    spinnerOn = false;
+  if (spinnerTarget > 0 && isTimeout(spinnerTime, 0.2) && !buttons.pressing(BTN::R2)) {
+    spinnerTarget = 10;
   }
-  if (spinnerOn && spinner.position(deg) >= 50) spinner.stop();
-  if (!spinnerOn && spinner.position(deg) <= 10) spinner.stop();
+  float error = spinnerTarget - spinner.position(deg);
+  if (fabs(error) < 5) error = 0;
+  float speed = error * 1;
+  setMotorVelocity(spinner, fmax(-100, fmin(100, speed)));
 
   b.updateButtonState();
 }

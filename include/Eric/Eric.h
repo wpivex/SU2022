@@ -23,7 +23,7 @@ private:
   int targetShooterVelocity = 0;
   int actualShooterVelocity = 0;
   bool intakeOn = false;
-  bool spinnerOn = false;
+  int spinnerTarget = 10;
   int spinnerTime = -1;
 
 };
