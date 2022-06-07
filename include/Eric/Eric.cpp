@@ -1,14 +1,14 @@
 #include "Eric.h"
 
 EricRobot::EricRobot():
-  leftA(PORT5, false),
-  leftB(PORT6, false),
-  leftC(PORT7, false),
-  leftD(PORT8, false),
-  rightA(PORT1, true),
-  rightB(PORT2, true),
-  rightC(PORT3, true),
-  rightD(PORT4, true),
+  leftA(PORT1, false),
+  leftB(PORT2, false),
+  leftC(PORT3, false),
+  leftD(PORT4, false),
+  rightA(PORT5, true),
+  rightB(PORT6, true),
+  rightC(PORT7, true),
+  rightD(PORT8, true),
   shooter1(PORT9, true),
   shooter2(PORT11, false),
   intake1(PORT12, true),
