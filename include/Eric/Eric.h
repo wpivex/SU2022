@@ -9,6 +9,7 @@ public:
 
   motor leftA, leftB, leftC, leftD, rightA, rightB, rightC, rightD;
   motor shooter1, shooter2, intake1, intake2, intake3;
+  motor spinner;
 
   EricRobot();
 
@@ -22,5 +23,7 @@ private:
   int targetShooterVelocity = 0;
   int actualShooterVelocity = 0;
   bool intakeOn = false;
+  bool spinnerOn = false;
+  int spinnerTime = -1;
 
 };

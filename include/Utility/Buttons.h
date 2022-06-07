@@ -28,5 +28,6 @@ class Buttons {
     const vex::controller::button* getObject(BTN::Button b);
     const vex::controller::axis *AXES[5];
     bool prevButtonState[NUM_BUTTONS] = {false}; // initalize all values to false
+    int lastPressed[NUM_BUTTONS] = {0};
 
 };

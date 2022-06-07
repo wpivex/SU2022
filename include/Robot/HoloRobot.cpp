@@ -62,7 +62,7 @@ void HoloRobot::moveHeadingU(float absHeading, float translationSpeed, float tur
 }
 
 // https://www.desmos.com/calculator/7qnjjtyrx2
-const float JOYSTICK_SNAP = 0.2;
+const float JOYSTICK_SNAP = 0.13;
 float joystickFunction(float ang, int t) {
   
   const float p2 = M_PI/2;
