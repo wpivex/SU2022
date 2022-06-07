@@ -1,19 +1,19 @@
 #include "Eric.h"
 
 EricRobot::EricRobot():
-  leftA(PORT1, true),
-  leftB(PORT2, true),
-  leftC(PORT3, true),
-  leftD(PORT4, true),
-  rightA(PORT5, false),
-  rightB(PORT6, false),
-  rightC(PORT7, false),
-  rightD(PORT8, false),
+  leftA(PORT5, false),
+  leftB(PORT6, false),
+  leftC(PORT7, false),
+  leftD(PORT8, false),
+  rightA(PORT1, true),
+  rightB(PORT2, true),
+  rightC(PORT3, true),
+  rightD(PORT4, true),
   shooter1(PORT9, true),
   shooter2(PORT11, false),
   intake1(PORT12, true),
   intake2(PORT13, true),
-  intake3(PORT14, false) {
+  intake3(PORT14, true) {
 
     leftA.setBrake(coast);
     leftB.setBrake(coast);
