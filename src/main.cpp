@@ -2,7 +2,7 @@
 // #include "main15.cpp"
 //#include "Robot/TestRobot.cpp"
 //#include "graphicsTest.cpp"
-#include "Indigo/IndigoRobot.cpp"
+#include "Eric/Eric.cpp"
 
 using namespace vex;
 
@@ -15,8 +15,7 @@ using namespace vex;
 int main() {
   //r.calibrateGyro();
   //task t(odom);
-  IndigoRobot r;
-  r.piston.set(true);
+  EricRobot r;
   while (true) {
     r.teleop();
     wait(20, msec);

@@ -4,7 +4,7 @@ IndigoRobot::IndigoRobot():
   leftA(PORT1, true),
   leftB(PORT2, false),
   leftC(PORT3, true),
-  rightA(PORT4, false),
+  rightA(PORT9, false),
   rightB(PORT5, true),
   rightC(PORT6, false),
   shooter(PORT7, true),
