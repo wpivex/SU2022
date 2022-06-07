@@ -10,7 +10,7 @@ EricRobot::EricRobot():
   rightC(PORT7, true),
   rightD(PORT8, true),
   shooter1(PORT9, true),
-  shooter2(PORT11, false),
+  shooter2(PORT10, false),
   intake1(PORT12, true),
   intake2(PORT13, true),
   intake3(PORT14, true) {
@@ -48,7 +48,8 @@ void EricRobot::teleop() {
   setMotorVelocity(shooter1, actualShooterVelocity);
   setMotorVelocity(shooter2, actualShooterVelocity);
 
-  if (buttons.pressed(BTN::X)) setIntakeVelocity(100);
+  if (buttons.pressed(BTN::X)) intakeOn = !intakeOn;
+  if (intakeOn) setIntakeVelocity(100);
   else setIntakeVelocity(0);
 
   b.updateButtonState();

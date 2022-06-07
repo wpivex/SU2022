@@ -21,5 +21,6 @@ public:
 private:
   int targetShooterVelocity = 0;
   int actualShooterVelocity = 0;
+  bool intakeOn = false;
 
 };
