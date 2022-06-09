@@ -23,8 +23,11 @@ IndigoRobot::IndigoRobot():
 
 void IndigoRobot::teleop() {
 
-  setRightVelocity(reverse,buttons.axis(BTN::LEFT_VERTICAL) * 100);
-  setLeftVelocity(reverse,buttons.axis(BTN::RIGHT_VERTICAL) * 100);
+  float drive = buttons.axis(BTN::LEFT_VERTICAL);
+  float turn = buttons.axis(BTN::RIGHT_HORIZONTAL);
+  float max = std::max(1.0, std::max(fabs(drive+turn), fabs(drive-turn)));
+  setLeftVelocity(forward,100 * (drive+turn)/max);
+  setRightVelocity(forward,100 * (drive-turn)/max);
 
   if (buttons.pressed(BTN::A)) {
     targetShooterVelocity = (targetShooterVelocity == 100) ? 0 : 100;

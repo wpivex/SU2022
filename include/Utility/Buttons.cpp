@@ -10,7 +10,7 @@ Buttons::Buttons() {
 
 }
 
-// bound [-100, 100]
+// bound [-1, 1]
 inline float Buttons::axis(BTN::Axis a) {
   float pos = AXES[a]->position();
   return pos / 100;
@@ -27,15 +27,7 @@ inline bool Buttons::pressing(int index) {
 inline bool Buttons::pressed(BTN::Button b) {
   if (b == BTN::NONE || b == BTN::INVALID) return false;
 
-  int t = vex::timer::system();
-  if (pressing(b) && !prevButtonState[b] && t - lastPressed[b] > 100) { // debouncing, prevent multiple pressed() commands for same button within 100ms
-    lastPressed[b] = t;
-    return true;
-  } else {
-    return false;
-  }
-
-  
+  return pressing(b) && !prevButtonState[b];
   
 }
 inline bool Buttons::released(BTN::Button b) {

@@ -38,8 +38,9 @@ void EricRobot::teleop() {
   float drive = buttons.axis(BTN::LEFT_VERTICAL);
   float turn = buttons.axis(BTN::RIGHT_HORIZONTAL);
   float max = std::max(1.0, std::max(fabs(drive+turn), fabs(drive-turn)));
-    setLeftVelocity(forward,100 * (drive+turn)/max);
-    setRightVelocity(forward,100 * (drive-turn)/max);
+  setLeftVelocity(forward,100 * (drive+turn)/max);
+  setRightVelocity(forward,100 * (drive-turn)/max);
+
   log("%f\n%f", 100 * (drive+turn)/max, 100 * (drive-turn)/max);
   if (buttons.pressed(BTN::B)) {
     targetShooterVelocity = (targetShooterVelocity == 100) ? 0 : 100;

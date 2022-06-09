@@ -2,7 +2,7 @@
 // #include "main15.cpp"
 //#include "Robot/TestRobot.cpp"
 //#include "graphicsTest.cpp"
-#include "Eric/Eric.cpp"
+#include "Team13/Team13.cpp"
 
 using namespace vex;
 
@@ -15,9 +15,17 @@ using namespace vex;
 int main() {
   //r.calibrateGyro();
   //task t(odom);
-  EricRobot r;
+
+  //encoder e(Brain.ThreeWirePort.A);
+
+
+
+  Team13Robot r;
+  //r.piston.set(true);
   while (true) {
     r.teleop();
+    //log("%f", e.rotation(deg));
+    
     wait(20, msec);
   }
 
