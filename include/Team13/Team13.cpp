@@ -24,6 +24,15 @@ void Team13Robot::teleop() {
   setRightVelocity(forward,100 * (drive-turn)/max);
 
   float arm = buttons.axis(BTN::RIGHT_VERTICAL) * 100;
+  if (fabs(arm) < 3) arm = 0;
+  setMotorVelocity(arm1, arm);
+  setMotorVelocity(arm2, arm);
+
+  float speed;
+  if (buttons.pressing(BTN::L1)) speed = 100;
+  else if (buttons.pressing(BTN::L2)) speed = -100;
+  else speed = 0;
+  setMotorVelocity(roller, speed);
 
   b.updateButtonState();
 }
