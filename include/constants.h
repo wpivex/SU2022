@@ -9,17 +9,6 @@ vex::competition Competition;
 Buttons buttons;
 
 
-struct Goal {
-  int id;
-  int bright;
-  vex::vision::signature sig;
-};
-
-
-const struct Goal YELLOW = {0, 13, vex::vision::signature (1, 979, 1701, 1340, -4143, -3541, -3842, 6.000, 0)};
-const struct Goal RED = {1, 56, vex::vision::signature (1, 5767, 9395, 7581, -685, 1, -342, 3.000, 0)};
-const struct Goal BLUE = {2, 67, vex::vision::signature (1, -2675, -1975, -2324, 8191, 14043, 11116, 3.000, 0)};
-
 namespace CURRENT {
   const static float OFF = 0.0;
   const static float LOW = 0.1;
@@ -27,26 +16,20 @@ namespace CURRENT {
   const static float HIGH = 10.0;
 }
 
-static const float VISION_CENTER_X = 157.0;
-static const float VISION_MAX_X = 316;
+
 const float MAX_VOLTS = 12.0; // maximum volts for vex motors
 
-static const int SCREEN_WIDTH = 480;
-static const int SCREEN_HEIGHT = 240;
+static const int SCREEN_WIDTH = 480; // Brain screen width
+static const int SCREEN_HEIGHT = 240; // Brain screen height
 
-static const float MAX_SPEED = 1;
-
-void setMotorVelocity(vex::motor m, double percent) {
+// Given a motor object and a percent from -100 to 100, convert to raw voltage and set motor velocity
+static inline void setMotorVelocity(vex::motor m, double percent) {
 
   vex::directionType d = percent > 0 ? vex::forward : vex::reverse;
   percent = fabs(percent);
   percent = fmin(100, fmax(-100, percent)); // bound between -100 and 100
 
   m.spin(d, percent / 100.0 * 12.0, vex::voltageUnits::volt);
-}
-
-static inline float distanceFormula(float dx, float dy) {
-  return sqrt(dx*dx + dy*dy);
 }
 
 // Bound angle to between -180 and 180
@@ -61,7 +44,7 @@ static inline float getAngleDiff(float targetAngle, float currentAngle) {
   return bound180(targetAngle - currentAngle);
 }
 
-// timeout in seconds
+// Given a starting time, return whether timeout (in seconds) has been reached
 static inline bool isTimeout(int startTime, float timeout) {
   return timeout != -1 && vex::timer::system() >= startTime + timeout*1000;
 }
@@ -108,14 +91,17 @@ static inline void log(const char *f, Args ... args) {
   }
 }
 
-static inline float distanceBetweenPoints(float x1, float y1, float x2, float y2) {
+// Return the distance between (x1, y1) and (x2, y2)
+static inline float distance(float x1, float y1, float x2, float y2) {
   return sqrt( (pow((x1-x2), 2))+(pow((y1-y2), 2)) );
 }
 
-static inline float hypo(float s1, float s2) {
-  return sqrt(s1*s1 + s2*s2);
+// Return the hypotonuse of a right triangle given two sides
+static inline float distance(float dx, float dy) {
+  return sqrt(dx*dx + dy*dy);
 }
 
+// Clamp value between [mn, mx]
 static inline float clamp(float value, float mn, float mx) {
   return fmax(mn, fmin(mx, value));
 }
