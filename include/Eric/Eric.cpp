@@ -14,7 +14,8 @@ EricRobot::EricRobot():
   intake1(PORT12, true),
   intake2(PORT13, true),
   intake3(PORT14, true),
-  spinner(PORT19, ratio6_1, true) {
+  spinner(PORT19, ratio6_1, true),
+  spinPID(1.25, 0.05, 0.0) {
 
     leftA.setBrake(coast);
     leftB.setBrake(coast);
@@ -60,11 +61,11 @@ void EricRobot::teleop() {
     spinnerTime = timer::system();
   }
   if (spinnerTarget > 0 && isTimeout(spinnerTime, 0.2) && !buttons.pressing(BTN::R2)) {
-    spinnerTarget = 10;
+    spinnerTarget = 5;
   }
   float error = spinnerTarget - spinner.position(deg);
   if (fabs(error) < 5) error = 0;
-  float speed = error * 1;
+  float speed = spinPID.tick(error);
   setMotorVelocity(spinner, fmax(-100, fmin(100, speed)));
 
   b.updateButtonState();

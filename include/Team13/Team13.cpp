@@ -3,8 +3,8 @@
 Team13Robot::Team13Robot():
   left(PORT13, false), 
   right(PORT15, true),
-  arm1(PORT5, false),
-  arm2(PORT4, true),
+  arm1(PORT5, true),
+  arm2(PORT4, false),
   roller(PORT10, true) {
 
     left.setBrake(coast);

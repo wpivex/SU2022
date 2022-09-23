@@ -1,5 +1,6 @@
 #include "Utility/Buttons.cpp"
 #include "constants.h"
+#include "Utility/PIDController.cpp"
 
 using namespace vex;
 
@@ -12,6 +13,8 @@ public:
   motor spinner;
 
   EricRobot();
+
+  PID spinPID;
 
   Buttons b;
   void teleop();
