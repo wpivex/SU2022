@@ -1,34 +1,30 @@
-// INCLUDE RIGHT VERSION OF ROBOT (15 OR 24)
-// #include "main15.cpp"
-//#include "Robot/TestRobot.cpp"
-#include "Eric/Eric.cpp"
-//#include "graphicsTest.cpp"
-//#include "Team13/Team13.cpp"
+#include "GenericAutonomous.h"
+#include "GenericDriver.h"
+#include "TestRobot.h"
+#include "constants.h"
 
-using namespace vex;
+GenericRobot* robot = new TestRobot();
 
-//TestRobot r(PORT3, 1, 10, Brain.ThreeWirePort.A, Brain.ThreeWirePort.B, Brain.ThreeWirePort.C);
+GenericAutonomous* auton = new GenericAutonomous(robot);
+GenericDriver* driver = new GenericDriver(robot);
 
-/*int odom(){
-  return r.odomTask();
-}*/
+int runAutonomous() { auton->run(); }
+void autonomousTask() { vex::task auton(runAutonomous); }
+
+int runDriver() { driver->run(); }
+void driverTask() { vex::task driver(runDriver); }
+
 
 int main() {
-  //r.calibrateGyro();
-  //task t(odom);
 
-  //encoder e(Brain.ThreeWirePort.A);
+    Competition.bStopAllTasksBetweenModes = true;
 
+    Competition.autonomous(autonomousTask);
+    Competition.drivercontrol(driverTask);
 
+    auton->preAuton();
 
-  //Team13Robot r;
-  //r.piston.set(true);
-  EricRobot r;
-  while (true) {
-    r.teleop();
-    //log("%f", e.rotation(deg));
-    
-    wait(20, msec);
-  }
-
+    while (true) {
+        vex::wait(100, vex::msec);
+    }
 }
