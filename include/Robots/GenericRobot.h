@@ -23,19 +23,17 @@ public:
     void setVelocity(float leftPercent, float rightPercent);
     
     // Runs this during driver period. Functions calls handleDrivetrain() and handleSecondrayActions()
-    void runDriver() {};
-
-    // Functions to be implemented that handle controller input for one tick in driver control
-    virtual void handleDrivetrain() {};
-    virtual void handleSecondaryActions() {};
+    void runDriver();
 
     // Functions to be implemented that handle autonomous logic
     virtual void runPreAutonomous() {};
     virtual void runAutonomous() {};
 
-
-
 protected:
+
+    // Functions to be implemented that handle controller input for one tick in driver control
+    virtual void handleDrivetrain() {};
+    virtual void handleSecondaryActions() {};
 
     vex::motor_group _leftMotors;
     vex::motor_group _rightMotors;

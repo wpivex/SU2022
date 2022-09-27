@@ -8,7 +8,7 @@ protected:
 
     void handleDrivetrain() override {
         // TODO
-        setVelocity(0,0);
+        this->setVelocity(0.0,0.0);
     }
 };
 
@@ -18,6 +18,6 @@ protected:
 
     void handleDrivetrain() override {
         // TODO
-        setVelocity(0,0);
+        this->setVelocity(0.0,0.0);
     }
 };
