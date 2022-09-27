@@ -10,6 +10,10 @@ class GenericRobot {
 public:
 
     GenericRobot() {
+    }
+
+    // Setup the robot. Cannot be called by constructor, because the setup is defined by subclasses
+    void init() {
         _localizer = setupLocalizer();
         _leftMotors = setupLeftMotors();
         _rightMotors = setupRightMotors();

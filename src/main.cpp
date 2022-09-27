@@ -19,6 +19,7 @@ void setupProgram() {
 
     std::shared_ptr<ControllerInterface> controller(new TestController());
     robot = std::unique_ptr<GenericRobot>(new TestRobot(controller));
+    robot->init();
 
 }
 
