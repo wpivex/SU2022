@@ -4,7 +4,7 @@
 #include "DriverMixins.h"
 #include "Localization/TestLocalizer.h"
 
-class TestRobot : public GenericRobot, TankDriverMixin {
+class TestRobot : public TankDriverMixin {
 
 public:
 
