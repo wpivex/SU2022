@@ -1,34 +1,29 @@
 #pragma once
 
+#include "GenericRobot.h"
 #include "DriverMixins.h"
-#include "PathFollowerMixin.h"
-#include "PathFollowing/ControllerInterface.h"
 #include "Localization/TestLocalizer.h"
 
-class TestRobot : public TankDriverMixin, public PathFollowerMixin {
+class TestRobot : public GenericRobot, TankDriverMixin {
 
 public:
 
-    TestRobot(std::shared_ptr<ControllerInterface> controller):
-        PathFollowerMixin(controller)
-    {
+    TestRobot() {
 
     }
 
-    // Define the parameters of TestRobot through implementing setup functions
-    std::shared_ptr<LocalizerInterface> setupLocalizer() override {
-        return std::shared_ptr<LocalizerInterface>(new TestLocalizer());
-    }
-    vex::motor_group setupLeftMotors() override {
+    vex::motor_group initLeftMotors() {
         vex::motor m1(vex::PORT1);
         return vex::motor_group(m1);
-    };
-    vex::motor_group setupRightMotors() override {
-        vex::motor m1(vex::PORT1);
-        return vex::motor_group(m1);
+
     }
+    vex::motor_group initRightMotors() {
+        vex::motor m2(vex::PORT1);
+        return vex::motor_group(m2);
 
-
-
+    }
+    LocalizerInterface* initLocalizer() {
+        return new TestLocalizer();
+    }
 
 };

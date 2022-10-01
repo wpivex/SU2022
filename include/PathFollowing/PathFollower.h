@@ -5,13 +5,13 @@
 #include <memory>
 
 
-// mixin for GenericRobot
-class PathFollowerMixin : public virtual GenericRobot {
+class PathFollower {
 
 public:
 
-    PathFollowerMixin(std::shared_ptr<ControllerInterface> controller) {
-        _controller = controller;
+    PathFollower(ControllerInterface& controller):
+        _controller(controller)
+    {
     }
 
     virtual void runUntilNode(int index) {
@@ -21,7 +21,7 @@ public:
 
 protected:
 
-    std::shared_ptr<ControllerInterface> _controller;
+    ControllerInterface& _controller;
 
 
 };

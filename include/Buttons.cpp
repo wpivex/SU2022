@@ -12,8 +12,9 @@ Buttons::Buttons() {
 
 // bound [-1, 1]
 inline float Buttons::axis(BTN::Axis a) {
-  float pos = AXES[a]->position();
-  return pos / 100;
+  float pos = AXES[a]->position() / 100.0;
+  if (fabs(pos) < 0.01) pos = 0;
+  return pow(pos, 3);
 }
 
 inline bool Buttons::pressing(BTN::Button b) {

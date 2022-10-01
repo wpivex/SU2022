@@ -1,25 +1,22 @@
 
 #include "Robots/TestRobot.h"
-#include "PathFollowing/TestController.h"
 #include "constants.h"
 
-#include <memory>
 
-std::unique_ptr<GenericRobot> robot;
+TestRobot robot;
 
 
-int runAutonomous() { robot->runAutonomous(); return 0;}
+int runAutonomous() { robot.runAutonomous(); return 0;}
 void autonomousTask() { vex::task auton(runAutonomous);}
 
-int runDriver() { robot->runDriver(); return 0;}
+int runDriver() { robot.runDriver(); return 0;}
 void driverTask() { vex::task driver(runDriver); }
 
 
 void setupProgram() {
 
-    std::shared_ptr<ControllerInterface> controller(new TestController());
-    robot = std::unique_ptr<GenericRobot>(new TestRobot(controller));
-    robot->init();
+    
+
 
 }
 
@@ -33,7 +30,7 @@ int main() {
     Competition.autonomous(autonomousTask);
     Competition.drivercontrol(driverTask);
 
-    robot->runPreAutonomous();
+    robot.runPreAutonomous();
 
     while (true) {
         vex::wait(100, vex::msec);

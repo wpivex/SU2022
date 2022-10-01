@@ -3,46 +3,41 @@
 #include "vex.h"
 #include "Localization/LocalizerInterface.h"
 #include "Buttons.h"
-#include <memory>
 
 class GenericRobot {
 
 public:
 
-    GenericRobot() {
-    }
 
-    // Setup the robot. Cannot be called by constructor, because the setup is defined by subclasses
     void init() {
-        _localizer = setupLocalizer();
-        _leftMotors = setupLeftMotors();
-        _rightMotors = setupRightMotors();
+        _leftMotors = initLeftMotors();
+        _rightMotors = initRightMotors();
+        _localizer = initLocalizer();
     }
 
-    // Functions that must be implemented by leaf concrete class to define robot parameters
-    virtual std::shared_ptr<LocalizerInterface> setupLocalizer() = 0;
-    virtual vex::motor_group setupLeftMotors() = 0;
-    virtual vex::motor_group setupRightMotors() = 0;
+    void setDriveVelocity(float leftPercent, float rightPercent);
 
-    void setVelocity(float leftPercent, float rightPercent);
-    
-    // Runs this during driver period. Functions calls handleDrivetrain() and handleSecondrayActions()
-    void runDriver();
+    virtual void runPreAutonomous() {}
+    virtual void runAutonomous() {}
+    virtual void runDriver();
 
-    // Functions to be implemented that handle autonomous logic
-    virtual void runPreAutonomous() {};
-    virtual void runAutonomous() {};
+    virtual ~GenericRobot() {
+        delete _localizer;
+    }
 
 protected:
 
-    // Functions to be implemented that handle controller input for one tick in driver control
-    virtual void handleDrivetrain() {};
-    virtual void handleSecondaryActions() {};
+    virtual vex::motor_group initLeftMotors() = 0;
+    virtual vex::motor_group initRightMotors() = 0;
+    virtual LocalizerInterface* initLocalizer() = 0;
+
+
+    virtual void handleDrivetrain() {}
+    virtual void handleSecondaryActions() {}
 
     vex::motor_group _leftMotors;
     vex::motor_group _rightMotors;
-
-    std::shared_ptr<LocalizerInterface> _localizer;
+    LocalizerInterface* _localizer;
 
     Buttons buttons;
 
