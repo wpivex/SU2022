@@ -4,11 +4,12 @@
 #include "Driver/DriverMixins.h"
 #include "RobotCreator.h"
 #include "constants.h"
+#include "Utility/Memory.h"
 
 
 Robot robot = getTestRobot();
-Auton* auton = new Auton(robot);
-Driver* driver = new TankDriver(robot);
+std::unique_ptr<Auton> auton = make_unique<Auton>(robot);
+std::unique_ptr<Driver> driver = make_unique<TankDriver>(robot);
 
 
 int runAutonomous() { auton->runAutonomous(); return 0;}
