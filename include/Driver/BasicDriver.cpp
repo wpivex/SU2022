@@ -1,14 +1,7 @@
-#include "GenericRobot.h"
+#include "BasicDriver.h"
 
-// Set velocity of left and drive motors, from -1 to 1
-void GenericRobot::setDriveVelocity(float leftPercent, float rightPercent) {
-    // TODO
-}
-
-void GenericRobot::runDriver() {
-
+void BasicDriver::runDriver() {
     while (true) {
-
         // Handle drivetrain locomotion from joysticks (tank, arcade, etc.)
         handleDrivetrain();
 

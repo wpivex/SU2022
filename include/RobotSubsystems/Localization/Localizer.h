@@ -1,8 +1,6 @@
 #pragma once
 
-// Implementation interface for localization algorithms
-
-class LocalizerInterface {
+class Localizable {
 
 public:
 
@@ -12,4 +10,5 @@ public:
 
     // Get the heading of the field relative to the field in radians
     virtual float getFieldHeading() = 0;
+
 };
