@@ -15,10 +15,10 @@ public:
         ec2(encoder2),
         ec3(encoder3)
     {}
-    
-    float getFieldX() {}
-    float getFieldY() {}
-    float getFieldHeading() {}
+
+    float getFieldX() {return 0;}
+    float getFieldY() {return 0;}
+    float getFieldHeading() {return 0;}
 
     Encoder ec1, ec2, ec3;
 };

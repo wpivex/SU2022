@@ -6,16 +6,17 @@
 #include "Intake.h"
 #include "Localization/Localizer.h"
 #include "PathFollowing/PathFollower.h"
+#include <memory>
 
 
 class Robot {
 
 public:
     // optional features of robot
-    Driveable* drive;
-    Localizable* localizer;
-    PathFollowable* pathFollower;
-    Intakeable* intake;
-    Flywheel* flywheel;
+    std::unique_ptr<Driveable> drive;
+    std::unique_ptr<Localizable> localizer;
+    std::unique_ptr<PathFollowable> pathFollower;
+    std::unique_ptr<Intakeable> intake;
+    std::unique_ptr<Flywheel> flywheel;
 
 };
