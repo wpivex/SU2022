@@ -1,12 +1,6 @@
-#pragma once
 #include "vex.h"
 
-class Driveable {
-
-public:
-
-    virtual void setDriveVelocity(float left, float right) = 0;
-};
+#include "Framework/RobotSubsystems/Drive.h"
 
 class DifferentialDrive : public Driveable {
 

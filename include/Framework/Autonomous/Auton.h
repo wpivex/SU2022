@@ -1,6 +1,6 @@
 #pragma once
 
-#include "RobotSubsystems/Robot.h"
+#include "../RobotSubsystems/Robot.h"
 
 class Auton {
 

@@ -1,14 +1,17 @@
 
-#include "Autonomous/Auton.h"
-#include "Driver/BasicDriver.h"
-#include "Driver/DriverMixins.h"
-#include "RobotCreator.h"
+#include "Framework/Autonomous/Auton.h"
+#include "Framework/Driver/Driver.h"
+
+#include "Application/Autonomous/TestAuton.h"
+#include "Application/Driver/TestDriver.h"
+#include "Application/RobotBuilder.h"
+
 #include "constants.h"
 #include "Utility/Memory.h"
 
 
 Robot robot = getTestRobot();
-std::unique_ptr<Auton> auton = make_unique<Auton>(robot);
+std::unique_ptr<Auton> auton = make_unique<TestAuton>(robot);
 std::unique_ptr<Driver> driver = make_unique<TankDriver>(robot);
 
 

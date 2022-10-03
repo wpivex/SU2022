@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Localizer.h"
+#include "Framework/RobotSubsystems/Localizer.h"
 
 typedef struct Encoder {
     float x, y; bool isHorizontal; // (x,y) in inches, relative to center of rotation (0,0)
