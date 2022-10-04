@@ -9,14 +9,14 @@ Robot getTestRobot() {
 
     vex::motor m1(vex::PORT1);
     vex::motor m2(vex::PORT2);
-    vex::motor_group left(m1);
-    vex::motor_group right(m2);
-    robot.drive.reset(new DifferentialDrive(left, right));
+    vex::motor_group leftMotors(m1);
+    vex::motor_group rightMotors(m2);
+    robot.drive.reset(new DifferentialDrive(leftMotors, rightMotors));
 
-    Encoder e1 = {0,0,false};
-    Encoder e2 = {0,0,false};
-    Encoder e3 = {0,0,false};
-    robot.localizer.reset(new Odometry(e1, e2, e3));
+    Encoder leftEncoder = {0,0};
+    Encoder rightEncoder = {0,0};
+    Encoder backEncoder = {0,0};
+    robot.localizer.reset(new Odometry(leftEncoder, rightEncoder, backEncoder));
 
     return robot;
 }

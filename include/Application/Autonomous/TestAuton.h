@@ -4,6 +4,7 @@
 #include "Framework/Autonomous/Auton.h"
 
 #include "TestData1.h"
+#include "../Controllers/PurePursuit.h"
 
 class TestAuton : public Auton {
 

@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Framework/PathFollowing/PathData.h"
+#include "Framework/RobotSubsystems/Robot.h"
+
 // Implementation interface for path following controllers
 
 class Controller {
@@ -7,9 +10,14 @@ class Controller {
 public:
 
     // Attempt to follow the given waypoints. Nonblocking function
-    virtual bool tickFollowPath(/* to be determined*/) = 0;
-};
+    virtual void initNewPath() = 0;
+    virtual bool followPath(Robot& _robot) = 0;
+    
+    void setNewPath(std::vector<Waypoint>* currentPath) {
+        path = currentPath;
+        initNewPath();
+    }
 
-// Class headers for different controllers
-class PurePursuit : public Controller { bool tickFollowPath() override; };
-class Stanley : public Controller { bool tickFollowPath() override; };
+protected:
+    std::vector<Waypoint>* path;
+};
