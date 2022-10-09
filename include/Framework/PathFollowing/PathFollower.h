@@ -1,16 +1,22 @@
 #pragma once
 
 #include "Application/Controllers/Controller.h"
-#include "PathData.h"
 #include "../RobotSubsystems/Robot.h"
+
+#include <vector>
+
+typedef struct Waypoint {
+    float x, y;
+} Waypoint;
+
 
 class PathFollower {
 public:
 
-    PathFollower(Robot& _robot, Controller&& _controller, const PathData& _data):
+    PathFollower(Robot& _robot, Controller&& _controller, std::vector<std::vector<Waypoint>>&& _path):
         robot(_robot),
         controller(_controller),
-        data(_data)
+        path(std::move(_path))
     {}
     
     void runUntilNode(int index);
@@ -19,6 +25,6 @@ protected:
 
     Robot& robot;
     Controller& controller;
-    const PathData& data;
+    std::vector<std::vector<Waypoint>> path;
 
 };

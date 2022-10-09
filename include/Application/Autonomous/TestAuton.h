@@ -12,7 +12,7 @@ public:
 
     TestAuton(Robot& robot):
         Auton(robot),
-        p(robot, PurePursuit(), TestData1())
+        p(robot, PurePursuit(), std::move(path))
     {
 
     }

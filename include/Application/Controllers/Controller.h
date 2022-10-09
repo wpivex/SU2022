@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Framework/PathFollowing/PathData.h"
 #include "Framework/RobotSubsystems/Robot.h"
 
 // Implementation interface for path following controllers

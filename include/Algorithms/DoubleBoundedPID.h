@@ -19,7 +19,6 @@ public:
 
 private:
     void handleEndCondition(float error) override;
-    float target;
     float tolerance;
     int timesNeeded;
     int times = 0;
