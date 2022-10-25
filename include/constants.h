@@ -2,5 +2,5 @@
 
 #include "vex.h"
 
-vex::competition Competition;
-
+extern vex::competition Competition;
+extern vex::brain Brain;

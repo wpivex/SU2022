@@ -16,7 +16,7 @@ public:
     bool isCompleted() override;
 
 private:
-    void handleEndCondition(float error);
+    void handleEndCondition(float error) override;
     bool goingUp;
     bool isFirst = true;
     bool done = false;
