@@ -7,12 +7,12 @@
 #include "Application/RobotBuilder.h"
 
 #include "constants.h"
-#include "Utility/Memory.h"
+#include <memory>
 
 
 Robot robot = getTestRobot();
-std::unique_ptr<Auton> auton = make_unique<TestAuton>(robot);
-std::unique_ptr<Driver> driver = make_unique<TankDriver>(robot);
+std::unique_ptr<Auton> auton = std::make_unique<TestAuton>(robot);
+std::unique_ptr<Driver> driver = std::make_unique<TankDriver>(robot);
 
 
 int runAutonomous() { auton->runAutonomous(); return 0;}
