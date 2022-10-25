@@ -45,3 +45,15 @@ Point getPointOnLineClosestToPoint(float pointX, float pointY, float lineX1, flo
     return {lineX1 + scalar * bx, lineY1 + scalar * by};
 
 }
+
+// Bound angle to between -180 and 180
+static inline float bound180(float angle) {
+  if (angle < -180) angle += 360;
+  else if (angle > 180) angle -= 360;
+  return angle;
+}
+
+// Find the closest angle between two universal angles
+static inline float getAngleDiff(float targetAngle, float currentAngle) {
+  return bound180(targetAngle - currentAngle);
+}
