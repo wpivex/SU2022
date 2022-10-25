@@ -5,7 +5,7 @@ static vex::controller C1 (vex::controllerType::primary);
 static vex::controller* Controller1 = &C1;
 
 const static int NUM_BUTTONS = 12;
-namespace BTN {
+namespace CONTROLLER_ENUM {
   enum Button {UP = 0, DOWN = 1, LEFT = 2, RIGHT = 3, X = 4, Y = 5, A = 6, B = 7, L1 = 8, L2 = 9, R1 = 10, R2 = 11, NONE = 12, INVALID = 13};
   enum Axis {RIGHT_HORIZONTAL = 0 , RIGHT_VERTICAL = 1, LEFT_VERTICAL = 2, LEFT_HORIZONTAL = 3};
 }
