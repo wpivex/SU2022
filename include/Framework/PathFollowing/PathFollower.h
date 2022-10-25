@@ -1,14 +1,10 @@
 #pragma once
 
 #include "Application/Controllers/Controller.h"
+#include "Waypoint.h"
 #include "../RobotSubsystems/Robot.h"
 
 #include <vector>
-
-typedef struct Waypoint {
-    float x, y;
-} Waypoint;
-
 
 class PathFollower {
 public:

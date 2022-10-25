@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Framework/RobotSubsystems/Robot.h"
+#include "Framework/PathFollowing/Waypoint.h"
+#include <vector>
 
 // Implementation interface for path following controllers
 

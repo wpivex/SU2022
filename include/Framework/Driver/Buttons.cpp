@@ -1,4 +1,3 @@
-#pragma once
 #include "Buttons.h"
 
 Buttons::Buttons() {
@@ -11,40 +10,40 @@ Buttons::Buttons() {
 }
 
 // bound [-1, 1]
-inline float Buttons::axis(BTN::Axis a) {
+float Buttons::axis(AXIS::Axis a) {
   float pos = AXES[a]->position() / 100.0;
   if (fabs(pos) < 0.01) pos = 0;
   return pow(pos, 3);
 }
 
-inline bool Buttons::pressing(BTN::Button b) {
-  if (b == BTN::NONE || b == BTN::INVALID) return false;
+bool Buttons::pressing(BUTTON::Button b) {
+  if (b == BUTTON::NONE || b == BUTTON::INVALID) return false;
   return getObject(b)->pressing();
 }
-inline bool Buttons::pressing(int index) {
-  if (index == BTN::NONE || index == BTN::INVALID) return false;
-  return pressing(static_cast<BTN::Button>(index));
+bool Buttons::pressing(int index) {
+  if (index == BUTTON::NONE || index == BUTTON::INVALID) return false;
+  return pressing(static_cast<BUTTON::Button>(index));
 }
-inline bool Buttons::pressed(BTN::Button b) {
-  if (b == BTN::NONE || b == BTN::INVALID) return false;
+bool Buttons::pressed(BUTTON::Button b) {
+  if (b == BUTTON::NONE || b == BUTTON::INVALID) return false;
 
   return pressing(b) && !prevButtonState[b];
   
 }
-inline bool Buttons::released(BTN::Button b) {
-  if (b == BTN::NONE || b == BTN::INVALID) return false;
+bool Buttons::released(BUTTON::Button b) {
+  if (b == BUTTON::NONE || b == BUTTON::INVALID) return false;
   return !pressing(b) && prevButtonState[b];
 }
 
-inline BTN::Button Buttons::get() {
+BUTTON::Button Buttons::get() {
 
   for (int i = 0; i < NUM_BUTTONS; i++) {
-    BTN::Button b = static_cast<BTN::Button>(i);
+    BUTTON::Button b = static_cast<BUTTON::Button>(i);
     if (pressed(b)) {
       return b;
     }
   }
-  return BTN::NONE;
+  return BUTTON::NONE;
 }
 
 // Run at every tick. Read all button inputs and update states
@@ -55,31 +54,31 @@ void Buttons::updateButtonState() {
   }
 }
 
-const vex::controller::button* Buttons::getObject(BTN::Button b) {
+const vex::controller::button* Buttons::getObject(BUTTON::Button b) {
   switch (b) {
-    case BTN::LEFT:
+    case BUTTON::LEFT:
       return &Controller1->ButtonLeft;
-    case BTN::RIGHT:
+    case BUTTON::RIGHT:
       return &Controller1->ButtonRight;
-    case BTN::UP:
+    case BUTTON::UP:
       return &Controller1->ButtonUp;
-    case BTN::DOWN:
+    case BUTTON::DOWN:
       return &Controller1->ButtonDown;
-    case BTN::X:
+    case BUTTON::X:
       return &Controller1->ButtonX;
-    case BTN::Y:
+    case BUTTON::Y:
       return &Controller1->ButtonY;
-    case BTN::A:
+    case BUTTON::A:
       return &Controller1->ButtonA;
-    case BTN::B:
+    case BUTTON::B:
       return &Controller1->ButtonB;
-    case BTN::L1:
+    case BUTTON::L1:
       return &Controller1->ButtonL1;
-    case BTN::R1:
+    case BUTTON::R1:
       return &Controller1->ButtonR1;
-    case BTN::L2:
+    case BUTTON::L2:
       return &Controller1->ButtonL2;
-    case BTN::R2:
+    case BUTTON::R2:
       return &Controller1->ButtonR2;
     default:
       return nullptr;

@@ -11,8 +11,8 @@ protected:
     void handleDrivetrain() override {
 
         robot.drive->setDriveVelocity(
-            buttons.axis(CONTROLLER_ENUM::LEFT_VERTICAL),
-            buttons.axis(CONTROLLER_ENUM::RIGHT_HORIZONTAL)
+            buttons.axis(AXIS::LEFT_VERTICAL),
+            buttons.axis(AXIS::RIGHT_HORIZONTAL)
         );
     }
 };
@@ -25,13 +25,10 @@ protected:
 
     void handleDrivetrain() override {
         
-        float drive = buttons.axis(CONTROLLER_ENUM::LEFT_VERTICAL);
-        float turn = buttons.axis(CONTROLLER_ENUM::RIGHT_HORIZONTAL);
+        float drive = buttons.axis(AXIS::LEFT_VERTICAL);
+        float turn = buttons.axis(AXIS::RIGHT_HORIZONTAL);
         float max = std::max(1.0, std::max(fabs(drive+turn), fabs(drive-turn)));
 
-        robot.drive->setDriveVelocity(
-            buttons.axis( (drive + turn) / max ),
-            buttons.axis( (drive - turn) / max )
-        );
+        robot.drive->setDriveVelocity( (drive + turn) / max, (drive - turn) / max ); 
     }
 };
