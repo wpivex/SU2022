@@ -18,7 +18,7 @@ Robot getTestRobot() {
     Encoder leftEncoder = {Brain.ThreeWirePort.A, 0, 0, 1};
     Encoder rightEncoder = {Brain.ThreeWirePort.B, 0, 0, 1};
     Encoder backEncoder = {Brain.ThreeWirePort.C, 0, 0, 1};
-    robot.localizer.reset(new Odometry(vex::PORT1, leftEncoder, rightEncoder, backEncoder));
+    //robot.localizer.reset(new Odometry(vex::PORT1, leftEncoder, rightEncoder, backEncoder));
 
     vex::motor f1(vex::PORT10);
     vex::motor f2(vex::PORT11);

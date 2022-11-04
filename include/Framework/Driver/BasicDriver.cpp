@@ -1,6 +1,9 @@
 #include "BasicDriver.h"
-
+#include "vex.h"
+#include "Utility/VexUtility.h"
+#include <functional>
 void BasicDriver::runDriver() {
+    
     // Initialize driver class
     initDriver();
 
@@ -19,11 +22,16 @@ void BasicDriver::runDriver() {
     }
 }
 
-void BasicDriver::initDriver(){
-    vex::task updaters = vex::task(runTasks);
+void BasicDriver::callsFlywheelTask() {
+    robot.flywheel->maintainVelocityTask();
 }
 
-void runTasks(){
-    robot.flywheel->maintainVelocityTask();
-    robot.localizer->updatePositionTask();
+void BasicDriver::initDriver() {
+
+    auto flywheelTask = [&] { robot.flywheel->maintainVelocityTask(); };
+    if (!robot.flywheel) launch_task(flywheelTask);
+
+    auto odomTask = [&] { robot.localizer->updatePositionTask(); };
+    if (!robot.localizer) launch_task(odomTask);
+
 }
