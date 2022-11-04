@@ -21,3 +21,7 @@ float SimplePID::tick(float error) {
 
   return output;
 }
+
+void SimplePID::setNewParam(float kp, float ki, float kd){
+  K = PIDParameters(kp,ki,kd);
+}

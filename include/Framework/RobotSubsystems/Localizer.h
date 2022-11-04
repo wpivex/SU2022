@@ -10,5 +10,5 @@ public:
 
     // Get the heading of the field relative to the field in radians
     virtual float getHeading() = 0;
-
+    virtual void updatePositionTask() = 0;
 };

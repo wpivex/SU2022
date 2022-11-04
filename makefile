@@ -18,6 +18,7 @@ SRC_C += $(wildcard include/**/**/**/*.cpp)
 OBJ = $(addprefix $(BUILD)/, $(addsuffix .o, $(basename $(SRC_C))) )
 
 # location of include files that c and cpp files depend on
+SRC_H  += $(wildcard include/**/**/**/**/*.h)
 SRC_H  += $(wildcard include/**/**/**/*.h)
 SRC_H  += $(wildcard include/**/**/*.h)
 SRC_H  += $(wildcard include/**/*.h)

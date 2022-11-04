@@ -1,11 +1,9 @@
 #pragma once
 
-#include "Driver.h"
 #include "Buttons.h"
+#include "../RobotSubsystems/Robot.h"
 
-class BasicDriver : public Driver {
-
-    using Driver::Driver;
+class BasicDriver {
 
 public:
 
@@ -15,5 +13,8 @@ protected:
     virtual void handleDrivetrain() {}
     virtual void handleSecondaryActions() {}
 
+    virtual void initDriver() {}
+
     Buttons buttons;
+    Robot& robot;
 };

@@ -1,6 +1,6 @@
 
 #include "Framework/Autonomous/Auton.h"
-#include "Framework/Driver/Driver.h"
+#include "Framework/Driver/BasicDriver.h"
 
 #include "Application/Autonomous/TestAuton.h"
 #include "Application/Driver/TestDriver.h"
@@ -12,7 +12,7 @@
 
 Robot robot = getTestRobot();
 std::unique_ptr<Auton> auton = std::make_unique<TestAuton>(robot);
-std::unique_ptr<Driver> driver = std::make_unique<TankDriver>(robot);
+std::unique_ptr<BasicDriver> driver = std::make_unique<TankDriver>(robot);
 
 
 int runAutonomous() { auton->runAutonomous(); return 0;}
