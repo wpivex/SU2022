@@ -3,7 +3,7 @@
 
 // Calculate the position of the robot for one tick based on encoders
 // update x, y, heading
-void Odometry::calculatePosition() {
+void Odometry::updatePositionTask() {
 
     float polledRight = right.get();
     float polledBack = back.get();

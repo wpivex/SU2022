@@ -6,6 +6,8 @@
 #include "Application/Driver/TestDriver.h"
 #include "Application/RobotBuilder.h"
 
+#include "Application/RobotSubsystems/TBHFlywheel.h"
+
 #include "constants.h"
 #include <memory>
 
@@ -28,7 +30,6 @@ int main() {
 
     Competition.autonomous(autonomousTask);
     Competition.drivercontrol(driverTask);
-    
 
     auton->runPreAutonomous();
 

@@ -2,7 +2,7 @@
 
 #include "RobotSubsystems/Odometry.h"
 #include "RobotSubsystems/DifferentialDrive.h"
-#include "RobotSubsystems/PIFlywheel.h"
+#include "RobotSubsystems/TBHFlywheel.h"
 #include "constants.h"
 
 
@@ -23,7 +23,17 @@ Robot getTestRobot() {
     vex::motor f1(vex::PORT10);
     vex::motor f2(vex::PORT11);
     vex::motor_group flywheel(f1,f2);
-    robot.flywheel.reset(new PIDFlywheel(flywheel,0.5,0.1,0));
+    std::vector<DataPoint> data = {
+        {1615, 5},
+        {1966, 6},
+        {2306, 7},
+        {2646, 8},
+        {3054, 9},
+        {3416, 10},
+        {3751, 11},
+        {4141, 12}
+    };
+    robot.flywheel.reset(new TBHFlywheel(flywheel, 6, 0.0002, std::move(data)));
 
     return robot;
 }

@@ -40,11 +40,11 @@ public:
         back(backEncoder)
     {}
 
-    void calculatePosition();
-
     float getX() override {return currX;}
     float getY() override {return currY;}
     float getHeading() override {return currHeading;}
+
+    void updatePositionTask() override;
 
 private:
     vex::inertial gyroSensor;
