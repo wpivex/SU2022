@@ -9,6 +9,7 @@
 #include "Application/RobotSubsystems/TBHFlywheel.h"
 
 #include "constants.h"
+#include <iostream>
 #include <memory>
 
 
@@ -25,13 +26,15 @@ void driverTask() { vex::task driver(runDriver); }
 
 int main() {
 
+    std::cout << "start" << "\n";
+
     // Stop only the competition tasks between modes, ie do not stop odometry
     Competition.bStopTasksBetweenModes = true;
 
     Competition.autonomous(autonomousTask);
     Competition.drivercontrol(driverTask);
 
-    auton->runPreAutonomous();
+    //auton->runPreAutonomous();
 
     while (true) {
         vex::wait(100, vex::msec);

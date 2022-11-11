@@ -35,4 +35,6 @@ void TestDriver::handleSecondaryActions() {
     //     changedPIDConstants = false;
     // }
     // log("Target Velocity: %f\nk_p: %f\nk_i: %f\nk_d: %f", kp, ki, kd);
+
+    robot.flywheel->setTargetFlywheelVelocity(3000);
 }
