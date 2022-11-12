@@ -3,10 +3,10 @@
 
 Buttons::Buttons() {
 
-  AXES[0] = Controller1->Axis1;
-  AXES[1] = Controller1->Axis2;
-  AXES[2] = Controller1->Axis3;
-  AXES[3] = Controller1->Axis4;
+  AXES[0] = &(Controller1->Axis1);
+  AXES[1] = &(Controller1->Axis2);
+  AXES[2] = &(Controller1->Axis3);
+  AXES[3] = &(Controller1->Axis4);
 
 }
 
@@ -14,7 +14,7 @@ Buttons::Buttons() {
 float Buttons::axis(AXIS::Axis a) {
   std::cout << "axisa" << &AXES[0] << " " << &(Controller1->Axis1) << std::endl;
   wait(1, vex::sec);
-  float pos = AXES[a].position() / 100.0;
+  float pos = AXES[a]->position() / 100.0;
   if (fabs(pos) < 0.01) pos = 0;
   return pow(pos, 3);
 }

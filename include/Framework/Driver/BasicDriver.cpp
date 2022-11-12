@@ -3,6 +3,11 @@
 #include "Utility/VexUtility.h"
 #include <functional>
 #include <iostream>
+
+BasicDriver::BasicDriver(Robot& robotReference): robot(robotReference) {
+
+}
+
 void BasicDriver::runDriver() {
     
     // Initialize driver class
@@ -10,8 +15,9 @@ void BasicDriver::runDriver() {
     
     while (true) {
         // Handle drivetrain locomotion from joysticks (tank, arcade, etc.)
+
         handleDrivetrain();
-        return;
+
         // Handle other things like intaking, shooting, etc.
         handleSecondaryActions();
         

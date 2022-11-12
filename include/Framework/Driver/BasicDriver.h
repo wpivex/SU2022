@@ -7,7 +7,7 @@ class BasicDriver {
 
 public:
 
-    BasicDriver(Robot& robotReference): robot(robotReference) {}
+    BasicDriver(Robot& robotReference);
 
     virtual void runDriver();
     void callsFlywheelTask();

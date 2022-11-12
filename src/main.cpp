@@ -12,10 +12,12 @@
 #include <iostream>
 #include <memory>
 
+#include "Framework/Driver/Buttons.h"
 
 Robot robot = getTestRobot();
+
 std::unique_ptr<Auton> auton = std::make_unique<TestAuton>(robot);
-std::unique_ptr<BasicDriver> driver = std::make_unique<TankDriver>(robot);
+std::unique_ptr<BasicDriver> driver = std::make_unique<BasicDriver>(robot);
 
 
 int runAutonomous() { auton->runAutonomous(); return 0;}
@@ -24,9 +26,7 @@ void autonomousTask() { vex::task auton(runAutonomous);}
 int runDriver() { driver->runDriver(); return 0;}
 void driverTask() { vex::task driver(runDriver); }
 
-int main() {
-
-    std::cout << "start" << "\n";
+void runCompetitionProgram() {
 
     // Stop only the competition tasks between modes, ie do not stop odometry
     Competition.bStopTasksBetweenModes = true;
@@ -34,10 +34,24 @@ int main() {
     Competition.autonomous(autonomousTask);
     Competition.drivercontrol(driverTask);
 
-    //auton->runPreAutonomous();
+    auton->runPreAutonomous();
 
     while (true) {
         vex::wait(100, vex::msec);
     }
+
+}
+
+int main() {
+
+    enum RunMode {TEST_AUTON, TEST_TELEOP, COMPETITION};
+
+
+    RunMode runType = TEST_TELEOP; // <-- CHANGE VALUE TO SPECIFY RUN MODE
+
+    if (runType == TEST_AUTON) auton->runAutonomous();
+    else if (runType == TEST_TELEOP) driver-> runDriver();
+    else runCompetitionProgram();
+
 }
 

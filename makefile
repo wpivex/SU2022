@@ -2,7 +2,7 @@
 
 # show compiler output
 VERBOSE = 0
-CXXFLAGS=-O2 # optimize at O2 level
+CXXFLAGS= -std=c++17 -O3 # optimize at O2 level
 
 # include toolchain options
 include vex/mkenv.mk

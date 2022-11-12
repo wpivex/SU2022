@@ -29,7 +29,7 @@ class Buttons {
 
   private:
     const vex::controller::button* getObject(BUTTON::Button b);
-    vex::controller::axis AXES[4];
+    vex::controller::axis const* AXES[4]; // non-const pointer to const axis
     bool prevButtonState[NUM_BUTTONS] = {false}; // initalize all values to false
 
 };
