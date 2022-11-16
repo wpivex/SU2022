@@ -17,7 +17,6 @@ class Buttons {
 
   public:
 
-    Buttons();
     void updateButtonState();
 
     bool pressing(BUTTON::Button b);
@@ -29,7 +28,6 @@ class Buttons {
 
   private:
     const vex::controller::button* getObject(BUTTON::Button b);
-    vex::controller::axis const* AXES[4]; // non-const pointer to const axis
     bool prevButtonState[NUM_BUTTONS] = {false}; // initalize all values to false
 
 };

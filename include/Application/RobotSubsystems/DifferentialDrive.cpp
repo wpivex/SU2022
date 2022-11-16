@@ -1,12 +1,12 @@
 #include "DifferentialDrive.h"
 #include <iostream>
+#include "Utility/Logging.h"
 
 using namespace vex;
 
 // Domain -1 to 1
 void DifferentialDrive::setDriveVelocity(float left, float right) {
-    std::cout << "diff" << std::endl;
-    wait(0.1, vex::sec);
+    log("%f\n%f", left, right);
     leftMotors.spin(forward, left * 12, volt);
     rightMotors.spin(forward, right * 12, volt);
 }

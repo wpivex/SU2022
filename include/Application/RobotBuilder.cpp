@@ -21,8 +21,8 @@ Robot getTestRobot() {
     // Encoder backEncoder = {Brain.ThreeWirePort.C, 0, 0, 1};
     // robot.localizer.reset(new Odometry(vex::PORT1, leftEncoder, rightEncoder, backEncoder));
     
-    vex::motor f1(vex::PORT10);
-    vex::motor f2(vex::PORT11);
+    vex::motor f1(vex::PORT4, false);
+    vex::motor f2(vex::PORT5, true);
     vex::motor_group flywheel(f1,f2);
     std::vector<DataPoint> data = {
         {1615, 5},
@@ -34,7 +34,7 @@ Robot getTestRobot() {
         {3751, 11},
         {4141, 12}
     };
-    robot.flywheel.reset(new TBHFlywheel(flywheel, 6, 0.0002, std::move(data)));
+    robot.flywheel.reset(new TBHFlywheel(flywheel, 6, 0.0002, std::move(data), 0));
 
     return robot;
 }

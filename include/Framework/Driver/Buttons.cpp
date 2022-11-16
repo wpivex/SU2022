@@ -1,20 +1,25 @@
 #include "Buttons.h"
 #include <iostream>
+#include "Utility/Logging.h"
 
-Buttons::Buttons() {
+const vex::controller::axis& getAxis(AXIS::Axis axis) {
+  using namespace AXIS;
 
-  AXES[0] = &(Controller1->Axis1);
-  AXES[1] = &(Controller1->Axis2);
-  AXES[2] = &(Controller1->Axis3);
-  AXES[3] = &(Controller1->Axis4);
-
+  switch (axis) {
+    case RIGHT_HORIZONTAL:
+      return Controller1->Axis1;
+    case RIGHT_VERTICAL:
+      return Controller1->Axis2;
+    case LEFT_VERTICAL:
+      return Controller1->Axis3;
+    default:
+      return Controller1->Axis4;
+  }
 }
 
 // bound [-1, 1]
 float Buttons::axis(AXIS::Axis a) {
-  std::cout << "axisa" << &AXES[0] << " " << &(Controller1->Axis1) << std::endl;
-  wait(1, vex::sec);
-  float pos = AXES[a]->position() / 100.0;
+  float pos = getAxis(a).position() / 100.0;
   if (fabs(pos) < 0.01) pos = 0;
   return pow(pos, 3);
 }

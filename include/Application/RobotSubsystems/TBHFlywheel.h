@@ -17,10 +17,10 @@ class TBHFlywheel : public Flywheel {
 
 public:
 
-    TBHFlywheel(vex::motor_group flywheelMotors, float flywheelToCartRatio, float tbhConstant, std::vector<DataPoint> voltRpmData):
+    TBHFlywheel(vex::motor_group flywheelMotors, float flywheelToCartRatio, float tbhConstant, std::vector<DataPoint> voltRpmData, float startSpeed = 0):
         motors(flywheelMotors),
         ratio(flywheelToCartRatio),
-        tbh(tbhConstant, 0, std::bind(rpmToVolt, std::placeholders::_1, voltRpmData))
+        tbh(tbhConstant, startSpeed, std::bind(rpmToVolt, std::placeholders::_1, voltRpmData))
     {}
 
     void setTargetFlywheelVelocity(float velocity) override;

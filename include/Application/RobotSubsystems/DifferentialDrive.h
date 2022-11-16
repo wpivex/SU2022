@@ -5,9 +5,9 @@
 class DifferentialDrive : public Driveable {
 
 public:
-    DifferentialDrive(vex::motor_group leftMotors, vex::motor_group rightMotors):
-        leftMotors(leftMotors),
-        rightMotors(rightMotors)
+    DifferentialDrive(vex::motor_group leftMotorGroup, vex::motor_group rightMotorGroup):
+        leftMotors(leftMotorGroup),
+        rightMotors(rightMotorGroup)
     {}
     
     void setDriveVelocity(float left, float right) override;

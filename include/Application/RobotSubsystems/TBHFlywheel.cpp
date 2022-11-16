@@ -1,4 +1,5 @@
 #include "TBHFlywheel.h"
+#include <iostream>
 
 float voltToRpm(float volt, std::vector<DataPoint>& data) {
     
@@ -31,7 +32,7 @@ void TBHFlywheel::maintainVelocityTask() {
         double currentSpeed = motors.velocity(vex::rpm) * ratio;
         float motorInputVolts = tbh.getNextMotorVoltage(currentSpeed);
         motors.spin(vex::forward, motorInputVolts, vex::volt);
-
+        std::cout << "maintain velocity" << motorInputVolts << std::endl;
         vex::task::sleep(10);
     }
 

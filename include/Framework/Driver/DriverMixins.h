@@ -2,6 +2,7 @@
 
 #include "BasicDriver.h"
 #include <iostream>
+#include "Utility/Logging.h"
 
 class TankDriver : public BasicDriver {
 
@@ -10,15 +11,11 @@ class TankDriver : public BasicDriver {
 protected:
 
     void handleDrivetrain() override {
-        std::cout << "f" << std::endl;
-        wait(0.1, vex::sec);
-        buttons.axis(AXIS::LEFT_VERTICAL);
-        std::cout << "tank" << std::endl;
-        wait(0.1, vex::sec);
-        robot.drive->setDriveVelocity(
-            buttons.axis(AXIS::LEFT_VERTICAL),
-            buttons.axis(AXIS::RIGHT_HORIZONTAL)
-        );
+        
+        float left = buttons.axis(AXIS::LEFT_VERTICAL);
+        float right = buttons.axis(AXIS::RIGHT_VERTICAL);
+        //log("%f\n%f", left, right);
+        robot.drive->setDriveVelocity(left, right);
     }
 };
 
