@@ -11,7 +11,7 @@ public:
     {}
 
     virtual void runPreAutonomous() {}
-    virtual void runAutonomous() {};
+    virtual void runAutonomous() {}
 
 protected:
     Robot& robot;

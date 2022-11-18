@@ -5,11 +5,11 @@
 
 #include "../Controllers/PurePursuit.h"
 
-class TestAuton : public Auton {
+class PathFollowingAuton : public Auton {
 
 public:
 
-    TestAuton(Robot& robot):
+    PathFollowingAuton(Robot& robot):
         Auton(robot),
         p(robot, PurePursuit(), std::vector<std::vector<Waypoint>>() )
     {

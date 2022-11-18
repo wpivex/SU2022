@@ -2,8 +2,7 @@
 #include "Framework/Autonomous/Auton.h"
 #include "Framework/Driver/BasicDriver.h"
 
-#include "Application/Autonomous/TestAuton.h"
-#include "Application/Driver/TestDriver.h"
+#include "Application/Driver/OdomDriver.h"
 #include "Application/RobotBuilder.h"
 
 #include "Application/RobotSubsystems/TBHFlywheel.h"
@@ -16,8 +15,8 @@
 
 Robot robot = getTestRobot();
 
-std::unique_ptr<Auton> auton = std::make_unique<TestAuton>(robot);
-std::unique_ptr<BasicDriver> driver = std::make_unique<TankDriver>(robot);
+std::unique_ptr<Auton> auton = std::make_unique<Auton>(robot);
+std::unique_ptr<BasicDriver> driver = std::make_unique<OdomDriver>(robot);
 
 
 int runAutonomous() { auton->runAutonomous(); return 0;}
