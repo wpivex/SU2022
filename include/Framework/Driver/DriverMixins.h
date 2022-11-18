@@ -14,7 +14,7 @@ protected:
         
         float left = buttons.axis(AXIS::LEFT_VERTICAL);
         float right = buttons.axis(AXIS::RIGHT_VERTICAL);
-        //log("%f\n%f", left, right);
+        log("%f\n%f", left, right);
         robot.drive->setDriveVelocity(left, right);
     }
 };

@@ -16,7 +16,7 @@
 Robot robot = getTestRobot();
 
 std::unique_ptr<Auton> auton = std::make_unique<Auton>(robot);
-std::unique_ptr<BasicDriver> driver = std::make_unique<OdomDriver>(robot);
+std::unique_ptr<BasicDriver> driver = std::make_unique<TankDriver>(robot);
 
 
 int runAutonomous() { auton->runAutonomous(); return 0;}

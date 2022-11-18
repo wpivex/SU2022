@@ -29,18 +29,13 @@ void BasicDriver::runDriver() {
     }
 }
 
-void BasicDriver::callsFlywheelTask() {
-    robot.flywheel->maintainVelocityTask();
-}
-
 void BasicDriver::initDriver() {
 
     if (robot.flywheel) {
         auto flywheelTask = [&] { robot.flywheel->maintainVelocityTask(); };
         launch_task(flywheelTask);
     }
-    std::cout << "a" << "\n";
-    wait(0.1, vex::sec);
+
 
     if (robot.localizer) {
         auto odomTask = [&] { robot.localizer->updatePositionTask(); };

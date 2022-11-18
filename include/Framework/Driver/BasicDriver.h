@@ -10,7 +10,6 @@ public:
     BasicDriver(Robot& robotReference);
 
     virtual void runDriver();
-    void callsFlywheelTask();
         
 protected:
     virtual void handleDrivetrain() {}

@@ -29,8 +29,8 @@ void TBHFlywheel::setTargetFlywheelVelocity(float velocity) {
 void TBHFlywheel::maintainVelocityTask() {
     
     while (true) {
-        double currentSpeed = motors.velocity(vex::rpm) * ratio;
-        float motorInputVolts = tbh.getNextMotorVoltage(currentSpeed);
+        float currentSpeed = motors.velocity(vex::rpm) * ratio;
+        float motorInputVolts = currentSpeed == 0 ? 0 : tbh.getNextMotorVoltage(currentSpeed);
         motors.spin(vex::forward, motorInputVolts, vex::volt);
         std::cout << "maintain velocity" << motorInputVolts << std::endl;
         vex::task::sleep(10);
