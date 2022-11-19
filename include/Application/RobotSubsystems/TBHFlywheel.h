@@ -4,6 +4,7 @@
 #include "Utility/MathUtility.h"
 #include <vector>
 #include "vex.h"
+#include "Vex/MotorGroup.h"
 
 typedef struct DataPoint {
     float rpm, volt;
@@ -17,19 +18,21 @@ class TBHFlywheel : public Flywheel {
 
 public:
 
-    TBHFlywheel(vex::motor_group flywheelMotors, float flywheelToCartRatio, float tbhConstant, std::vector<DataPoint> voltRpmData, float startSpeed = 0):
+    TBHFlywheel(std::initializer_list<MotorData> flywheelMotors, float flywheelToCartRatio, float tbhConstant, std::vector<DataPoint> voltRpmData, float startSpeed = 0):
         motors(flywheelMotors),
         ratio(flywheelToCartRatio),
         tbh(tbhConstant, startSpeed, std::bind(rpmToVolt, std::placeholders::_1, voltRpmData))
     {}
 
-    void setTargetFlywheelVelocity(float velocity) override;
+    void setVelocity(float velocity) override;
+    float getVelocity() override;
     void maintainVelocityTask() override;
 
 
 private:
     TBH tbh;
     float ratio;
-    vex::motor_group motors;
+    MotorGroup motors;
+    bool hasSetStopped = false;
 
 };

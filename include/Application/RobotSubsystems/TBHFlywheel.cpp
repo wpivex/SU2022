@@ -1,5 +1,4 @@
 #include "TBHFlywheel.h"
-#include <iostream>
 
 float voltToRpm(float volt, std::vector<DataPoint>& data) {
     
@@ -21,19 +20,33 @@ float rpmToVolt(float rpm, std::vector<DataPoint>& data) {
 
 }
 
-void TBHFlywheel::setTargetFlywheelVelocity(float velocity) {
+void TBHFlywheel::setVelocity(float velocity) {
     tbh.setTargetRPM(velocity);
+    if (velocity == 0) hasSetStopped = false;
+}
+
+float TBHFlywheel::getVelocity() {
+    return tbh.getTargetRPM();
 }
 
 
 void TBHFlywheel::maintainVelocityTask() {
+
+    using namespace std;
     
     while (true) {
-        float currentSpeed = motors.velocity(vex::rpm) * ratio;
-        float motorInputVolts = currentSpeed == 0 ? 0 : tbh.getNextMotorVoltage(currentSpeed);
-        motors.spin(vex::forward, motorInputVolts, vex::volt);
-        std::cout << "maintain velocity" << motorInputVolts << std::endl;
+
+        if (tbh.getTargetRPM() == 0 && !hasSetStopped) {
+            motors.stop(vex::brake);
+            hasSetStopped = true;
+            serial("stop");
+        } else if (tbh.getTargetRPM() != 0) {
+            float currentSpeed = motors.getVelocity(vex::rpm) * ratio;
+            float motorInputVolts = tbh.getNextMotorVoltage(currentSpeed);
+            motors.setVelocity(motorInputVolts / 12.0);
+            serial(motorInputVolts);
+        }
+
         vex::task::sleep(10);
     }
-
 }

@@ -7,25 +7,32 @@
 
 
 Robot getTestRobot() {
+
+    using namespace vex;
+
     Robot robot;
+  
+    robot.drive.reset(new DifferentialDrive(
+        { // left motors
+            {PORT11, true},
+            {PORT12, false},
+            {PORT14, true},
+            {PORT15, false}
+        },
+        { // right motors
+            {PORT17, false},
+            {PORT18, false},
+            {PORT19, true},
+            {PORT20, true}
+        }
+    ));
     
-    vex::motor m11(vex::PORT11, true);
-    vex::motor m12(vex::PORT12);
-    vex::motor m14(vex::PORT14, true);
-    vex::motor m15(vex::PORT15);
-    vex::motor_group leftMotors(m11, m12, m14, m15);
-    vex::motor m17(vex::PORT17);
-    vex::motor m18(vex::PORT18);
-    vex::motor m19(vex::PORT19, true);
-    vex::motor m20(vex::PORT20, true);
-    vex::motor_group rightMotors(m17, m18, m19, m20);
-    robot.drive.reset(new DifferentialDrive(leftMotors, rightMotors));
-    /*
-    Encoder leftEncoder = {Brain.ThreeWirePort.E, 0, 0, 1};
-    Encoder rightEncoder = {Brain.ThreeWirePort.C, 0, 0, 1};
-    Encoder backEncoder = {Brain.ThreeWirePort.A, 0, 0, 1};
-    robot.localizer.reset(new Odometry(vex::PORT7, leftEncoder, rightEncoder, backEncoder));
-    */
+    // Encoder leftEncoder = {Brain.ThreeWirePort.E, 0, 0, 1};
+    // Encoder rightEncoder = {Brain.ThreeWirePort.C, 0, 0, 1};
+    // Encoder backEncoder = {Brain.ThreeWirePort.A, 0, 0, 1};
+    // robot.localizer.reset(new Odometry(vex::PORT7, leftEncoder, rightEncoder, backEncoder));
+    
+
     vex::motor f1(vex::PORT1, false);
     vex::motor f2(vex::PORT2, true);
     vex::motor_group flywheel(f1,f2);
@@ -39,7 +46,12 @@ Robot getTestRobot() {
         {3751, 11},
         {4141, 12}
     };
-    robot.flywheel.reset(new TBHFlywheel(flywheel, 6, 0.0002, std::move(data), 0));
-
+    robot.flywheel.reset(new TBHFlywheel(
+        { {PORT1, false},{PORT2, true} }, 
+        6, // flywheel to cart ratio
+        0.0002, // tbh constant
+        std::move(data),
+        0)); // start speed
+    
     return robot;
 }

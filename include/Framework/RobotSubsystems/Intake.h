@@ -1,5 +1,7 @@
 #pragma once
 
 class Intakeable {
-    virtual void setIntakeVelocity(float velocity) = 0;
+public:
+    virtual void setVelocity(float velocity) = 0;
+    void stop() { setVelocity(0); }
 };

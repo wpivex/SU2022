@@ -1,13 +1,15 @@
 #include "vex.h"
+#include "Vex/MotorGroup.h"
 
 #include "Framework/RobotSubsystems/Drive.h"
 
 class DifferentialDrive : public Driveable {
 
 public:
-    DifferentialDrive(vex::motor_group leftMotorGroup, vex::motor_group rightMotorGroup):
-        leftMotors(leftMotorGroup),
-        rightMotors(rightMotorGroup)
+    
+    DifferentialDrive(std::initializer_list<MotorData> left, std::initializer_list<MotorData> right):
+        leftMotors(left),
+        rightMotors(right)
     {}
     
     void setDriveVelocity(float left, float right) override;
@@ -16,5 +18,5 @@ public:
     float getLeftPosition() override;
     float getRightPosition() override;
 
-    vex::motor_group leftMotors, rightMotors;
+    MotorGroup leftMotors, rightMotors;
 };

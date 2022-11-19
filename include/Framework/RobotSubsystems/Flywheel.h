@@ -3,6 +3,7 @@
 class Flywheel {
 
 public:
-    virtual void setTargetFlywheelVelocity(float velocity) = 0;
+    virtual void setVelocity(float velocity) = 0;
+    virtual float getVelocity() = 0;
     virtual void maintainVelocityTask() = 0;
 };

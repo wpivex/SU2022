@@ -6,14 +6,13 @@ using namespace vex;
 
 // Domain -1 to 1
 void DifferentialDrive::setDriveVelocity(float left, float right) {
-    log("%f\n%f", left, right);
-    leftMotors.spin(forward, left * 12, volt);
-    rightMotors.spin(forward, right * 12, volt);
+    leftMotors.setVelocity(left);
+    rightMotors.setVelocity(right);
 }
 
 void DifferentialDrive::setBrakeType(brakeType type) {
-    leftMotors.setStopping(type);
-    rightMotors.setStopping(type);
+    leftMotors.setBrakeType(type);
+    rightMotors.setBrakeType(type);
 }
 
 void DifferentialDrive::resetPosition() {
@@ -23,9 +22,9 @@ void DifferentialDrive::resetPosition() {
 
 // Position in rotations
 float DifferentialDrive::getLeftPosition() {
-    return leftMotors.position(rev);
+    return leftMotors.getPosition(rev);
 }
 
 float DifferentialDrive::getRightPosition() {
-    return rightMotors.position(rev);
+    return rightMotors.getPosition(rev);
 }

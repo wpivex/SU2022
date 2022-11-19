@@ -1,8 +1,10 @@
-#include "OdomDriver.h"
+#include "OdomLoggingMixin.h"
 #include "Utility/Logging.h"
 #include "math.h"
 
-void OdomDriver::handleSecondaryActions() {
+FieldGraphics field;
+
+void drawRobotOnField(Robot& robot) {
    
    float x = robot.localizer->getX();
    float y = robot.localizer->getY();
