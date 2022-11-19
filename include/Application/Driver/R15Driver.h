@@ -7,5 +7,10 @@ class R15Driver : public TankDriver {
 
 public:
     void handleSecondaryActions() override;
+
+private:
+
+    bool indexerOn = false;
+    int indexerTimer;
     
 };

@@ -3,6 +3,7 @@
 #include "RobotSubsystems/Odometry.h"
 #include "RobotSubsystems/DifferentialDrive.h"
 #include "RobotSubsystems/TBHFlywheel.h"
+#include "RobotSubsystems/Intake15.h"
 #include "constants.h"
 
 
@@ -32,10 +33,11 @@ Robot getTestRobot() {
     // Encoder backEncoder = {Brain.ThreeWirePort.A, 0, 0, 1};
     // robot.localizer.reset(new Odometry(vex::PORT7, leftEncoder, rightEncoder, backEncoder));
     
+    robot.intake.reset(new Intake15(
+        { {PORT13, true}, {PORT16, false} },
+        Brain.ThreeWirePort.G
+    ));
 
-    vex::motor f1(vex::PORT1, false);
-    vex::motor f2(vex::PORT2, true);
-    vex::motor_group flywheel(f1,f2);
     std::vector<DataPoint> data = {
         {1615, 5},
         {1966, 6},
