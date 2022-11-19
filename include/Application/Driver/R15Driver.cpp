@@ -1,7 +1,8 @@
 #include "R15Driver.h"
 #include "math.h"
+#include "Utility/Logging.h"
 
-const float INCREMENT = 100;
+const float INCREMENT = 200;
 
 void R15Driver::handleSecondaryActions() {
 
@@ -15,6 +16,10 @@ void R15Driver::handleSecondaryActions() {
         float target = fmax(0, robot.flywheel->getVelocity() - INCREMENT);
         robot.flywheel->setVelocity(target);
     }
+
+    //log("%f",robot.flywheel->getVelocity());
+
+    return;
 
     // Indexer is set to R2 state. R2: Intake forward with 0.25s delay, R1: intake reverse
     if (buttons.pressed(BUTTON::R2)) {

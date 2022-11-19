@@ -1,6 +1,10 @@
 #pragma once
 #include <functional>
+#include <vector>
 
+typedef struct DataPoint {
+    float rpm, volt;
+} DataPoint;
 
 /*
 A controller class that attempts to maintain the velocity of motor(s) given a target.
@@ -11,15 +15,18 @@ class TBH {
 
 public:
 
-    TBH(float gainConstant, float initialTargetRPM, std::function<float(float)> rpmToVoltFunction);
+    TBH(float gainConstant, float initialTargetRPM, std::vector<DataPoint> flywheelData);
     float getNextMotorVoltage(float currentVelocityRPM);
     void setTargetRPM(float targetVelocityRPM);
     float getTargetRPM() {return targetRPM;}
     float getTBH() {return tbh;}
 
+    float voltToRpm(float volt);
+    float rpmToVolt(float rpm);
+
 private:
 
-    std::function<float(float)> rpmToVolt;
+    std::vector<DataPoint> data;
     float gain;
     float targetRPM;
     float output = 0;

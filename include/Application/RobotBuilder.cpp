@@ -33,27 +33,30 @@ Robot getTestRobot() {
     // Encoder backEncoder = {Brain.ThreeWirePort.A, 0, 0, 1};
     // robot.localizer.reset(new Odometry(vex::PORT7, leftEncoder, rightEncoder, backEncoder));
     
-    robot.intake.reset(new Intake15(
-        { {PORT13, true}, {PORT16, false} },
-        Brain.ThreeWirePort.G
-    ));
+    // robot.intake.reset(new Intake15(
+    //     { {PORT13, true}, {PORT16, false} },
+    //     Brain.ThreeWirePort.G
+    // ));
 
     std::vector<DataPoint> data = {
-        {1615, 5},
-        {1966, 6},
-        {2306, 7},
-        {2646, 8},
-        {3054, 9},
-        {3416, 10},
-        {3751, 11},
-        {4141, 12}
+        
     };
     robot.flywheel.reset(new TBHFlywheel(
         { {PORT1, false},{PORT2, true} }, 
         6, // flywheel to cart ratio
-        0.0002, // tbh constant
-        std::move(data),
-        0)); // start speed
+        0.0002, // tbh constant  
+        {
+            {1615, 5},
+            {1966, 6},
+            {2306, 7},
+            {2646, 8},
+            {3054, 9},
+            {3416, 10},
+            {3751, 11},
+            {4141, 12}
+        },
+        0
+    )); // start speed
     
     return robot;
 }

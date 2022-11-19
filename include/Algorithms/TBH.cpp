@@ -3,9 +3,9 @@
 
 
 
-TBH::TBH(float gainConstant, float initialTargetRPM, std::function<float(float)> rpmToVoltFunction):
-    rpmToVolt(rpmToVoltFunction),
-    gain(gainConstant)
+TBH::TBH(float gainConstant, float initialTargetRPM, std::vector<DataPoint> flywheelData):
+    gain(gainConstant),
+    data(flywheelData)
 {
     setTargetRPM(initialTargetRPM);
 }
@@ -40,4 +40,24 @@ float TBH::getNextMotorVoltage(float currentVelocityRPM) {
 void TBH::setTargetRPM(float targetVelocityRPM) {
     targetRPM = targetVelocityRPM;
     isFirstCrossover = true;
+}
+
+float TBH::voltToRpm(float volt) {
+    
+    int lowerBound = 0;
+    while (lowerBound < data.size() - 2 && data[lowerBound+1].volt < volt) lowerBound++;
+    
+    float percent = (volt - data[lowerBound].volt) / (data[lowerBound+1].volt - data[lowerBound].volt);
+    return data[lowerBound].rpm + (data[lowerBound+1].rpm - data[lowerBound].rpm) * percent;
+
+}
+
+float TBH::rpmToVolt(float rpm) {
+
+    int lowerBound = 0;
+    while (lowerBound < data.size() - 2 && data[lowerBound+1].rpm < rpm) lowerBound++;
+    
+    float percent = (rpm - data[lowerBound].rpm) / (data[lowerBound+1].rpm - data[lowerBound].rpm);
+    return data[lowerBound].volt + (data[lowerBound+1].volt - data[lowerBound].volt) * percent;
+
 }

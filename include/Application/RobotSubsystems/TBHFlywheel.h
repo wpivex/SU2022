@@ -5,14 +5,7 @@
 #include <vector>
 #include "vex.h"
 #include "Vex/MotorGroup.h"
-
-typedef struct DataPoint {
-    float rpm, volt;
-} DataPoint;
-
-float voltToRpm(float volt, std::vector<DataPoint>& data);
-float rpmToVolt(float rpm, std::vector<DataPoint>& data);
-
+#include "Utility/VisualGraph.h"
 
 class TBHFlywheel : public Flywheel {
 
@@ -21,7 +14,8 @@ public:
     TBHFlywheel(std::initializer_list<MotorData> flywheelMotors, float flywheelToCartRatio, float tbhConstant, std::vector<DataPoint> voltRpmData, float startSpeed = 0):
         motors(flywheelMotors),
         ratio(flywheelToCartRatio),
-        tbh(tbhConstant, startSpeed, std::bind(rpmToVolt, std::placeholders::_1, voltRpmData))
+        tbh(tbhConstant, startSpeed, voltRpmData),
+        g(0, 3600, 10, 400, 4)
     {}
 
     void setVelocity(float velocity) override;
@@ -34,5 +28,6 @@ private:
     float ratio;
     MotorGroup motors;
     bool hasSetStopped = false;
+    VisualGraph g;
 
 };
